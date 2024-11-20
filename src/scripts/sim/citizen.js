@@ -8,36 +8,36 @@ export class Citizen {
    */
   constructor(residence) {
     /**
-     * Unique identifier for the citizen
+     * Identificador único do residente
      * @type {string}
      */
     this.id = crypto.randomUUID();
 
     /**
-     * Name of this citizen
+     * Nome do residente
      * @type {string}
      */
     this.name = generateRandomName();
 
     /**
-     * Age of the citizen in years
+     * Idade do residente em anos
      * @type {number}
      */
     this.age = 1 + Math.floor(100*Math.random());
 
     /**
-     * The current state of the citizen
+     * Estado atual do residente
      * @type {'idle' | 'school' | 'employed' | 'unemployed' | 'retired'}
      */
     this.state = 'idle';
 
     /**
-     * Number of simulation steps in the current state
+     * Número de passos de simulação do estado atual
      */
     this.stateCounter = 0;
 
     /**
-     * Reference to the building the citizen lives at
+     * Residência em que o residente reside
      * @type {ResidentialZone}
      */
     this.residence = residence;
@@ -46,7 +46,7 @@ export class Citizen {
   }
 
   /**
-   * Sets the initial state of the citizen
+   * Definir o estado inicial do residente
    */
   #initializeState() {
     if (this.age < config.citizen.minWorkingAge) {
@@ -59,7 +59,7 @@ export class Citizen {
   }
 
   /**
-   * Steps the state of the citizen forward in time by one simulation step
+   * Avança o estado do residente a cada passo
    * @param {object} city 
    */
   simulate(city) {
@@ -87,7 +87,7 @@ export class Citizen {
   }
 
   /**
-   * Handles any clean up needed before a building is removed
+   * Assegura a necessidade de limpeza antes da remoção
    */
   dispose() {
 
@@ -96,7 +96,7 @@ export class Citizen {
 
 
   /**
-   * Returns an HTML representation of this object
+   * Devolve a representação do objeto em HTML
    * @returns {string}
    */
   toHTML() {

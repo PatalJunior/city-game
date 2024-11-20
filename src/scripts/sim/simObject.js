@@ -10,14 +10,14 @@ export class SimObject extends THREE.Object3D {
    */
   #mesh = null;
   /**
-   * World position of the object
+   * Posição do objeto no "mundo"
    * @type {THREE.Vector3}
    */
   #worldPos = new THREE.Vector3();
 
   /**
-   * @param {number} x The x-coordinate of the object 
-   * @param {number} y The y-coordinate of the object
+   * @param {number} x Coordenada X do objeto 
+   * @param {number} y Coordenada Y do objeto
    */
   constructor(x = 0, y = 0) {
     super();
@@ -44,10 +44,10 @@ export class SimObject extends THREE.Object3D {
   } 
 
   /**
-   * @type {THREE.Mesh} value
+   * @type {THREE.Mesh} valor
    */
   setMesh(value) {
-    // Remove resources for existing mesh
+    // Remover recursos da malha existente
     if (this.#mesh) {
       this.dispose();
       this.remove(this.#mesh);
@@ -55,18 +55,18 @@ export class SimObject extends THREE.Object3D {
 
     this.#mesh = value;
 
-    // Add to scene graph
+    // Adicionar a malha à scene
     if (this.#mesh) {
       this.add(this.#mesh);
     }
   }
 
   /**
-   * Updates the state of this object by one simulation step
+   * Atualiza o estado do objeto a cada passo de simulação
    * @param {City} city 
    */
   simulate(city) {
-    // Override in subclass
+    // Sobrepõe a class
   }
 
   setSelected(value) {
@@ -86,7 +86,7 @@ export class SimObject extends THREE.Object3D {
   }
 
   /**
-   * Sets the emission color of the mesh 
+   * Define a cor de emissão da malha 
    * @param {number} color 
    */
   #setMeshEmission(color) {
@@ -95,7 +95,7 @@ export class SimObject extends THREE.Object3D {
   }
 
   /**
-   * Handles any clean up needed before an object is removed
+   * Assegura que o objeto deve ser limpo antes de ser removido
    */
   dispose() {
     this.#mesh.traverse((obj) => {

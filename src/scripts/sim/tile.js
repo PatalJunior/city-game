@@ -4,12 +4,12 @@ import { SimObject } from './simObject.js';
 
 export class Tile extends SimObject {
   /**
-   * The type of terrain
+   * Tipo de terreno
    * @type {string}
    */
   terrain = 'grass';
   /**
-   * The building on this tile
+   * Objeto de construção
    * @type {Building?}
    */
   #building = null;
@@ -27,10 +27,10 @@ export class Tile extends SimObject {
   }
 
   /**
-   * @type {Building} value
+   * @type {Building} valor
    */
   setBuilding(value) {
-    // Remove and dispose resources for existing building
+    // Remove e descarta recursos da construção existente
     if (this.#building) {
       this.#building.dispose();
       this.remove(this.#building);
@@ -38,7 +38,7 @@ export class Tile extends SimObject {
 
     this.#building = value;
 
-    // Add to scene graph
+    // Adiciona o objeto à scene
     if (value) {
       this.add(this.#building);
     }
@@ -63,7 +63,7 @@ export class Tile extends SimObject {
   }
 
   /**
-   * Gets the Manhattan distance between two tiles
+   * Obtém a distância da cidade entre dois blocos
    * @param {Tile} tile 
    * @returns 
    */
@@ -73,7 +73,7 @@ export class Tile extends SimObject {
 
   /**
    * 
-   * @returns {string} HTML representation of this object
+   * @returns {string} Representação do objeto em HTML
    */
   toHTML() {
     let html = `
