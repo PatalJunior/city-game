@@ -84,7 +84,7 @@ export class ResidentsModule extends SimModule {
    * @returns {string}
    */
   toHTML() {
-    let html = `<div class="info-heading">Residents (${this.#residents.length}/${this.maximum})</div>`;
+    let html = `<div class="info-heading">Moradores (${this.#residents.length}/${this.maximum})</div>`;
 
     html += '<ul class="info-citizen-list">';
     for (const resident of this.#residents) {

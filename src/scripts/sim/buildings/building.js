@@ -77,16 +77,17 @@ export class Building extends SimObject {
    * @returns {string}
    */
   toHTML() {
+    let haveRoadAcess = (this.roadAccess.value ? "Sim" : "Não")
     let html = `
-      <div class="info-heading">Building</div>
-      <span class="info-label">Name </span>
+      <div class="info-heading">Edifício</div>
+      <span class="info-label">Nome: </span>
       <span class="info-value">${this.name}</span>
       <br>
-      <span class="info-label">Type </span>
+      <span class="info-label">Tipo: </span>
       <span class="info-value">${this.type}</span>
       <br>
-      <span class="info-label">Road Access </span>
-      <span class="info-value">${this.roadAccess.value}</span>
+      <span class="info-label">Acesso Por Ruas: </span>
+      <span class="info-value">${haveRoadAcess}</span>
       <br>`;
 
     return html;

@@ -26,7 +26,7 @@ export class City extends THREE.Group {
   services = [];
   
   /**
-   * Tamanho da cidade em tiles
+   * Tamanho da cidade em ladrilhos
    * @type {number}
    */
   size = 8;
@@ -37,7 +37,7 @@ export class City extends THREE.Group {
   simTime = 0;
   
   /**
-   * Matriz 2D representando os tiles da cidade
+   * Matriz 2D representando os blocos da cidade
    * @type {Tile[][]}
    */
   tiles = [];
@@ -49,7 +49,7 @@ export class City extends THREE.Group {
   vehicleGraph;
 
   // Construtor da cidade
-  constructor(size, name = 'Patal & oSlaYn CITY') {
+  constructor(size, name = 'Patal & oSLaYN City') {
     super(); // Inicializa a classe pai (THREE.Group)
 
     this.name = name;

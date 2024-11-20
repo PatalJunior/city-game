@@ -27,9 +27,9 @@ export class Citizen {
 
     /**
      * Estado atual do residente
-     * @type {'idle' | 'school' | 'employed' | 'unemployed' | 'retired'}
+     * @type {'Parado' | 'Estudante' | 'Empregado' | 'Desempregado' | 'Reformado'}
      */
-    this.state = 'idle';
+    this.state = 'Parado';
 
     /**
      * Número de passos de simulação do estado atual
@@ -50,11 +50,11 @@ export class Citizen {
    */
   #initializeState() {
     if (this.age < config.citizen.minWorkingAge) {
-      this.state = 'school';
+      this.state = 'Estudante';
     } else if (this.age >= config.citizen.retirementAge) {
-      this.state = 'retired';
+      this.state = 'Reformado';
     } else {
-      this.state = 'unemployed';
+      this.state = 'Desempregado';
     }
   }
 
@@ -64,20 +64,20 @@ export class Citizen {
    */
   simulate(city) {
     switch (this.state) {
-      case 'idle':
-      case 'school':
-      case 'retired':
+      case 'Parado':
+      case 'Estudante':
+      case 'Reformado':
         // Action - None
 
         // Transitions - None
 
         break;
-      case 'unemployed':
+      case 'Desempregado':
 
         // TODO
 
         break;
-      case 'employed':
+      case 'Empregado':
         // Actions - None
 
         break;

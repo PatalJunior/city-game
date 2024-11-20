@@ -4,10 +4,10 @@ import { Zone } from '../../buildings/zones/zone.js';
 import { SimModule } from './simModule.js';
 
 export const DevelopmentState = {
-  abandoned: 'abandoned',
-  developed: 'developed',
-  underConstruction: 'under-construction',
-  undeveloped: 'undeveloped',
+  abandoned: 'Abandonado',
+  developed: 'Desenvolvido',
+  underConstruction: 'Em Construção',
+  undeveloped: 'Por Desenvolver',
 };
 
 export class DevelopmentModule extends SimModule {
@@ -145,10 +145,10 @@ export class DevelopmentModule extends SimModule {
    */
     toHTML() {
       return `
-        <span class="info-label">State </span>
+        <span class="info-label">Estado: </span>
         <span class="info-value">${this.state}</span>
         <br>
-        <span class="info-label">Level </span>
+        <span class="info-label">Nível: </span>
         <span class="info-value">${this.level}</span>
         <br>`;
     }

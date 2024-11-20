@@ -77,11 +77,11 @@ export class Tile extends SimObject {
    */
   toHTML() {
     let html = `
-      <div class="info-heading">Tile</div>
-      <span class="info-label">Coordinates </span>
+      <div class="info-heading">Bloco</div>
+      <span class="info-label">Coordenadas </span>
       <span class="info-value">X: ${this.x}, Y: ${this.y}</span>
       <br>
-      <span class="info-label">Terrain </span>
+      <span class="info-label">Terreno </span>
       <span class="info-value">${this.terrain}</span>
       <br>
     `;
