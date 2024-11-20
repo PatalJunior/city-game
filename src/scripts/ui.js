@@ -5,7 +5,7 @@ import pauseIconUrl from '/icons/pause-color.png';
 
 export class GameUI {
   /**
-   * Currently selected tool
+   * Ferramenta selecionada
    * @type {string}
    */
   activeToolId = 'select';
@@ -14,7 +14,7 @@ export class GameUI {
    */
   selectedControl = document.getElementById('button-select');
   /**
-   * True if the game is currently paused
+   * Estado do jogo, pausado, retomado
    * @type {boolean}
    */
   isPaused = false;
@@ -36,7 +36,7 @@ export class GameUI {
    * @param {*} event 
    */
   onToolSelected(event) {
-    // Deselect previously selected button and selected this one
+    // Desmarca o botão anteriormente selecionado e selecione este
     if (this.selectedControl) {
       this.selectedControl.classList.remove('selected');
     }
@@ -47,7 +47,7 @@ export class GameUI {
   }
 
   /**
-   * Toggles the pause state of the game
+   * Altera o estado de pausa do jogo
    */
   togglePause() {
     this.isPaused = !this.isPaused;
@@ -61,7 +61,7 @@ export class GameUI {
   }
 
   /**
-   * Updates the values in the title bar
+   * Atualiza os valores na barra de título
    * @param {Game} game 
    */
   updateTitleBar(game) {
@@ -74,7 +74,7 @@ export class GameUI {
   }
 
   /**
-   * Updates the info panel with the information in the object
+   * Atualiza o painel de info com as infos do objeto
    * @param {SimObject} object 
    */
   updateInfoPanel(object) {

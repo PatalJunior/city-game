@@ -6,7 +6,7 @@ import { DevelopmentState } from './development.js';
 import { SimModule } from './simModule.js';
 
 /**
- * Logic for residents moving into and out of a building
+ * Lógica para residentes que entram e saem de um edifício
  */
 export class ResidentsModule extends SimModule {
   /**
@@ -28,7 +28,7 @@ export class ResidentsModule extends SimModule {
   }
 
   /**
-   * Returns the number of residents
+   * Retorna o número de residentes
    * @type {number}
    */
   get count() {
@@ -36,7 +36,7 @@ export class ResidentsModule extends SimModule {
   }
 
   /**
-   * Maximuim number of residents that can live in this building
+   * Número máximo de residentes que podem viver no edifício
    * @returns {number}
    */
   get maximum() {
@@ -47,11 +47,11 @@ export class ResidentsModule extends SimModule {
    * @param {City} city 
    */
   simulate(city) {
-    // If building is abandoned, all residents are evicted and no more residents are allowed to move in.
+    // Se o edifício for abandonado, todos os residentes serão despejados e nenhum novo residente pode residir
     if (this.#zone.development.state === DevelopmentState.abandoned && this.#residents.length > 0) {
       this.evictAll();
     } else if (this.#zone.development.state === DevelopmentState.developed) {
-      // Move in new residents if there is room
+      // Mudar para lá novos residentes no caso de haver espaço
       if (this.#residents.length < this.maximum && Math.random() < config.modules.residents.residentMoveInChance) {
         this.#residents.push(new Citizen(this.#zone));
       }
@@ -63,7 +63,7 @@ export class ResidentsModule extends SimModule {
   }
 
   /**
-   * Evicts all residents from the building
+   * Despeja todos os residentes do prédio
    */
   #evictAll() {
     for (const resident of this.#residents) {
@@ -73,14 +73,14 @@ export class ResidentsModule extends SimModule {
   }
 
   /**
-   * Handles any clean up needed before a building is removed
+   * Trata de qualquer limpeza necessária antes de um edifício ser removido
    */
   dispose() {
     this.#evictAll();
   }
 
   /**
-   * Returns an HTML representation of this object
+   * Retorna uma representação HTML deste objeto
    * @returns {string}
    */
   toHTML() {

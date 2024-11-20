@@ -36,18 +36,18 @@ export class AssetManager {
   }
 
   /**
-   * Returns a cloned copy of a mesh
-   * @param {string} name The name of the mesh to retrieve
-   * @param {Object} simObject The SimObject object that corresponds to this mesh
-   * @param {boolean} transparent True if materials should be transparent. Default is false.
+   * Retorna uma cópia duplicada da malha
+   * @param {string} name O nome da malha recebida
+   * @param {Object} simObject O objeto SimObject que corresponde a esta malha
+   * @param {boolean} transparent True se os materiais devem ser transparentes. O padrão é False.
    * @returns {THREE.Mesh}
    */
   getModel(name, simObject, transparent = false) {
     const mesh = this.models[name].clone();
-    // Clone materials so each object has a unique material
-    // This is so we can set the modify the texture of each
-    // mesh independently (e.g. highlight on mouse over,
-    // abandoned buildings, etc.))
+    // Duplica materiais para que cada objeto tenha um material único
+    // Isto para que possamos definir a alteração da textura de cada
+    // malha de forma independente (por exemplo, realce ao passar o rato,
+    // edifícios abandonados, etc.))
     mesh.traverse((obj) => {
       obj.userData = simObject;
       if(obj.material) {
@@ -60,9 +60,9 @@ export class AssetManager {
   }
   
   /**
-   * Loads the texture at the specified URL
+   * Carrega a textura no URL especificado
    * @param {string} url 
-   * @returns {THREE.Texture} A texture object
+   * @returns {THREE.Texture} Textura do objeto
    */
   #loadTexture(url, flipY = false) {
     const texture = this.textureLoader.load(url)
@@ -72,8 +72,8 @@ export class AssetManager {
   }
 
   /**
-   * Load the 3D models
-   * @param {string} url The URL of the model to load
+   * Lê o modelo 3D
+   * @param {string} url URL do modelo a ser lido
    */
   #loadModel(name, {filename, scale = 1, rotation = 0, receiveShadow = true, castShadow = true}) {
     console.log(`Loading: ${baseUrl}models/${filename}`)
@@ -99,7 +99,7 @@ export class AssetManager {
 
         this.models[name] = mesh;
 
-        // Once all models are loaded
+        // Quanto todos os modelos são lidos
         this.loadedModelCount++;
         if (this.loadedModelCount == this.modelCount) {
           this.onLoad()

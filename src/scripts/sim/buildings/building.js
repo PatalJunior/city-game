@@ -5,12 +5,12 @@ import { RoadAccessModule } from './modules/roadAccess';
 
 export class Building extends SimObject {
   /**
-   * The building type
+   * Tipo de construção
    * @type {string}
    */
   type = 'building';
   /**
-   * True if the terrain should not be rendered with this building type
+   * Terreno não deve ser renderizado com este tipo de construção
    * @type {boolean}
    */
   hideTerrain = false;
@@ -19,12 +19,12 @@ export class Building extends SimObject {
    */
   roadAccess = new RoadAccessModule(this);
   /**
-   * The current status of the building
+   * Estado atual da construção
    * @type {string}
    */
   status = BuildingStatus.Ok;
   /**
-   * Icon displayed when building status
+   * Ícone apresentado no estado da construção
    * @type {Sprite}
    */
   #statusIcon = new THREE.Sprite();
@@ -73,7 +73,7 @@ export class Building extends SimObject {
   }
   
   /**
-   * Returns an HTML representation of this object
+   * Retorna uma representação HTML deste objeto
    * @returns {string}
    */
   toHTML() {

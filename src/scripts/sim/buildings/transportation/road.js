@@ -14,65 +14,66 @@ export class Road extends Building {
   }
 
   /**
-   * Updates the road mesh based on which adjacent tiles are roads as well
+   * Atualiza a malha da estrada com base em quais os blocos adjacentes que também são estradas
    * @param {City} city 
+   * @param {DEG2RAD} // Converte número em graus para o valor equivalente em radianos
    */
   refreshView(city) {
-    // Check which adjacent tiles are roads
+    // Verifique quais as peças adjacentes que são estradas
     let top = (city.getTile(this.x, this.y - 1)?.building?.type === this.type) ?? false;
     let bottom = (city.getTile(this.x, this.y + 1)?.building?.type === this.type) ?? false;
     let left = (city.getTile(this.x - 1, this.y)?.building?.type === this.type) ?? false;
     let right = (city.getTile(this.x + 1, this.y)?.building?.type === this.type) ?? false;
 
-    // Check all combinations
-    // Four-way intersection
+    // Verifica todas as combinações
+    // Interseção de cruzamentos
     if (top && bottom && left && right) {
       this.style = 'four-way';
       this.rotation.y = 0;
-    // T intersection
-    } else if (!top && bottom && left && right) { // bottom-left-right
+    // Interseções em T
+    } else if (!top && bottom && left && right) { // Fundo Esquerda-Direita
       this.style = 'three-way';
       this.rotation.y  = 0;
-    } else if (top && !bottom && left && right) { // top-left-right
+    } else if (top && !bottom && left && right) { // Topo Esquerda-Direita
       this.style = 'three-way';
       this.rotation.y  = 180 * DEG2RAD;
-    } else if (top && bottom && !left && right) { // top-bottom-right
+    } else if (top && bottom && !left && right) { // Topo Fundo-Direita
       this.style = 'three-way';
       this.rotation.y  = 90 * DEG2RAD;
-    } else if (top && bottom && left && !right) { // top-bottom-left
+    } else if (top && bottom && left && !right) { // Topo Fundo-Esquerda
       this.style = 'three-way';
       this.rotation.y  = 270 * DEG2RAD;
     // Corner
-    } else if (top && !bottom && left && !right) { // top-left
+    } else if (top && !bottom && left && !right) { // Topo Esquerda
       this.style = 'corner';
       this.rotation.y  = 180 * DEG2RAD;
-    } else if (top && !bottom && !left && right) { // top-right
+    } else if (top && !bottom && !left && right) { // Topo Direita
       this.style = 'corner';
       this.rotation.y  = 90 * DEG2RAD;
-    } else if (!top && bottom && left && !right) { // bottom-left
+    } else if (!top && bottom && left && !right) { // Fundo Esquerda
       this.style = 'corner';
       this.rotation.y  = 270 * DEG2RAD;
-    } else if (!top && bottom && !left && right) { // bottom-right
+    } else if (!top && bottom && !left && right) { // Fundo Direita
       this.style = 'corner';
       this.rotation.y  = 0;
     // Straight
-    } else if (top && bottom && !left && !right) { // top-bottom
+    } else if (top && bottom && !left && !right) { // Topo Fundo
       this.style = 'straight';
       this.rotation.y  = 0;
-    } else if (!top && !bottom && left && right) { // left-right
+    } else if (!top && !bottom && left && right) { // Esquerda-Direita
       this.style = 'straight';
       this.rotation.y  = 90 * DEG2RAD;
     // Dead end
-    } else if (top && !bottom && !left && !right) { // top
+    } else if (top && !bottom && !left && !right) { // Topo
       this.style = 'end';
       this.rotation.y  = 180 * DEG2RAD;
-    } else if (!top && bottom && !left && !right) { // bottom
+    } else if (!top && bottom && !left && !right) { // Fundo
       this.style = 'end';
       this.rotation.y  = 0;
-    } else if (!top && !bottom && left && !right) { // left
+    } else if (!top && !bottom && left && !right) { // Esquerda
       this.style = 'end';
       this.rotation.y  = 270 * DEG2RAD;
-    } else if (!top && !bottom && !left && right) { // right
+    } else if (!top && !bottom && !left && right) { // Direita
       this.style = 'end';
       this.rotation.y  = 90 * DEG2RAD;
     }
@@ -83,7 +84,7 @@ export class Road extends Building {
   }
 
   /**
-   * Returns an HTML representation of this object
+   * Retorna uma representação HTML deste objeto
    * @returns {string}
    */
   toHTML() {

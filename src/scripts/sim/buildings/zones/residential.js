@@ -16,7 +16,7 @@ export class ResidentialZone extends Zone {
   }
 
   /**
-   * Steps the state of the zone forward in time by one simulation step
+   * Avança o estado da zona no tempo numa etapa de simulação
    * @param {City} city 
    */
   simulate(city) {
@@ -25,7 +25,7 @@ export class ResidentialZone extends Zone {
   }
 
   /**
-   * Handles any clean up needed before a building is removed
+   * Trata de qualquer limpeza necessária antes de uma construção ser removido
    */
   dispose() {
     this.residents.dispose();
@@ -33,7 +33,7 @@ export class ResidentialZone extends Zone {
   }
 
   /**
-   * Returns an HTML representation of this object
+   * Retorna uma representação HTML deste objeto
    * @returns {string}
    */
   toHTML() {
@@ -43,11 +43,11 @@ export class ResidentialZone extends Zone {
   }
 }
 
-// Arrays of different name components
+// Tabela com diferentes nomes
 const prefixes = ['Emerald', 'Ivory', 'Crimson', 'Opulent', 'Celestial', 'Enchanted', 'Serene', 'Whispering', 'Stellar', 'Tranquil'];
 const suffixes = ['Tower', 'Residence', 'Manor', 'Court', 'Plaza', 'House', 'Mansion', 'Place', 'Villa', 'Gardens'];
 
-// Function to generate a random building name
+// Função para gerar um nome de construção aleatória
 function generateBuildingName() {
   const prefix = prefixes[Math.floor(Math.random() * prefixes.length)];
   const suffix = suffixes[Math.floor(Math.random() * suffixes.length)];

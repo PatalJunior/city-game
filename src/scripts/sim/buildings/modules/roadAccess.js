@@ -4,7 +4,7 @@ import { Building } from '../building.js';
 import { SimModule } from './simModule.js';
 
 /**
- * Logic for determining whether or not a tile has road access
+ * Lógica para determinar se um bloco tem ou não acesso por ruas
  */
 export class RoadAccessModule extends SimModule {
   /**
@@ -16,7 +16,7 @@ export class RoadAccessModule extends SimModule {
    */
   enabled = true;
   /**
-   * Whether or not the tile has access to a road
+   * Se o bloco tem ou não acesso a uma estrada
    * @type {boolean}
    */
   value;
@@ -30,7 +30,7 @@ export class RoadAccessModule extends SimModule {
   }
 
   /**
-   * Updates the state of this attribute
+   * Atualiza o estado deste atributo
    * @param {City} city 
    */
   simulate(city) {

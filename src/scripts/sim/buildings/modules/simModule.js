@@ -2,25 +2,25 @@ import { City } from '../../city.js';
 
 export class SimModule {
   /**
-   * Simulates one day passing
+   * Simula a passagem de um dia
    * @param {City} city 
    */
   simulate(city) {
-    // Implement in subclass
+    // Implementar na subclasse
   }
 
   /**
-   * Cleans up this module, disposing of any assets and unlinking any references
+   * Limpa este módulo, descartando quaisquer ativos e desvinculando quaisquer referências
    */
   dispose() {
-    // Implement in subclass
+    // Implementar na subclasse
   }
 
   /**
-   * Returns an HTML representation of this object
+   * Retorna uma representação HTML deste objeto
    * @returns {string}
    */
   toHTML() {
-    // Implement in subclass
+    // Implementar na subclasse
   }
 }

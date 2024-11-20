@@ -1,24 +1,24 @@
 /** 
- * Manages mouse and keyboard input
+ * Gere a entrada do rato e do teclado
  */
 export class InputManager {
   /**
-   * Last mouse position
+   * Última posição do rato
    * @type {x: number, y: number}
    */
   mouse = { x: 0, y: 0 };
   /**
-   * True if left mouse button is currently down
+   * Botão esquerdo do rato está a ser premido
    * @type {boolean}
    */
   isLeftMouseDown = false;
   /**
-   * True if the middle mouse button is currently down
+   * Botão do meio do rato está a ser premido
    * @type {boolean}
    */
   isMiddleMouseDown = false;
   /**
-   * True if the right mouse button is currently down
+   * Botão direito do rato está a ser premido
    * @type {boolean}
    */
   isRightMouseDown = false;
@@ -31,7 +31,7 @@ export class InputManager {
   }
 
   /**
-   * Event handler for `mousedown` event
+   * Controlo do evento 'mousedown'
    * @param {MouseEvent} event 
    */
   #onMouseDown(event) {
@@ -47,7 +47,7 @@ export class InputManager {
   }
 
   /**
-   * Event handler for `mouseup` event
+   * Controlo do evento 'mouseup'
    * @param {MouseEvent} event 
    */
   #onMouseUp(event) {
@@ -63,7 +63,7 @@ export class InputManager {
   }
 
   /**
-   * Event handler for 'mousemove' event
+   * Controlo do evento 'mousemove'
    * @param {MouseEvent} event 
    */
   #onMouseMove(event) {
