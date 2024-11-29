@@ -36,7 +36,8 @@ export class Game {
       antialias: true
     });
     this.scene = new THREE.Scene();
-    this.scene.background = new THREE.Color(0x87ceeb);
+    const color = new THREE.Color("rgb(194, 233, 206)");
+    this.scene.background = new THREE.Color(color);
 
     this.inputManager = new InputManager(window.ui.gameWindow);
     this.cameraManager = new CameraManager();

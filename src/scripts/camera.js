@@ -5,10 +5,10 @@ const DEG2RAD = Math.PI / 180.0; // Conversão de graus para radianos
 const RIGHT_MOUSE_BUTTON = 2; // Botão direito do mouse
 
 // Restrições da câmera
-const CAMERA_SIZE = 5; // Tamanho da câmera
+const CAMERA_SIZE = 5.5; // Tamanho da câmera
 const MIN_CAMERA_RADIUS = 0.1; // Raio mínimo da câmera
 const MAX_CAMERA_RADIUS = 5; // Raio máximo da câmera
-const MIN_CAMERA_ELEVATION = 45; // Elevação mínima da câmera
+const MIN_CAMERA_ELEVATION = 25; // Elevação mínima da câmera
 const MAX_CAMERA_ELEVATION = 45; // Elevação máxima da câmera
 
 // Sensibilidade da câmera
