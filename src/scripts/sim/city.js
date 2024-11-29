@@ -49,11 +49,12 @@ export class City extends THREE.Group {
   vehicleGraph;
 
   // Construtor da cidade
-  constructor(size, name = 'Patal & oSLaYN City') {
+  constructor(size, money, name = 'Patal & oSLaYN City') {
     super(); // Inicializa a classe pai (THREE.Group)
 
     this.name = name;
     this.size = size;
+    this.money = money;
     
     this.add(this.debugMeshes); // Adiciona meshes de depuração
     this.add(this.root);        // Adiciona o nó raiz

@@ -67,6 +67,7 @@ export class GameUI {
   updateTitleBar(game) {
     document.getElementById('city-name').innerHTML = game.city.name;
     document.getElementById('population-counter').innerHTML = game.city.population;
+    document.getElementById('city-money').innerHTML = game.city.money+"$";
 
     const date = new Date('1/1/2023');
     date.setDate(date.getDate() + game.city.simTime);
