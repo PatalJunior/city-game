@@ -6,6 +6,7 @@ import { DEG2RAD } from 'three/src/math/MathUtils.js';
 export class Road extends Building {
   constructor(x, y) {
     super(x, y);
+    this.price = 100;
     this.type = 'road';
     this.name = 'Road';
     this.style = 'straight';

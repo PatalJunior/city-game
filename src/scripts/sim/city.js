@@ -134,6 +134,19 @@ export class City extends THREE.Group {
     this.simTime++; // Incrementa o tempo da simulação
   }
 
+   /**
+   * Verifica se a cidade tem dinheiro para construção de X edificio
+   * @param {BuildingType} buildingType Tipo de construção
+   */
+  hasMoneyForBuild(buildingType) {
+    if (buildingType == BuildingType.residential && this.money >= 500) {
+      return ((this.money -= 500)>=500);
+    } else if (buildingType == BuildingType.road && this.money >= 100) {
+      return ((this.money -= 100)>=100);
+    }
+    return false
+  }
+
   /**
    * Coloca um edifício em um tile especificado
    * @param {number} x Coordenada x
@@ -145,18 +158,22 @@ export class City extends THREE.Group {
 
     // Verifica se o tile já possui um edifício
     if (tile && !tile.building) {
-      tile.setBuilding(createBuilding(x, y, buildingType));
-      tile.refreshView(this);
+      if (this.hasMoneyForBuild(buildingType)) {
+        tile.setBuilding(createBuilding(x, y, buildingType));
+        tile.refreshView(this);
 
-      // Atualiza a visualização dos tiles vizinhos (ex: para estradas)
-      this.getTile(x - 1, y)?.refreshView(this);
-      this.getTile(x + 1, y)?.refreshView(this);
-      this.getTile(x, y - 1)?.refreshView(this);
-      this.getTile(x, y + 1)?.refreshView(this);
+        // Atualiza a visualização dos tiles vizinhos (ex: para estradas)
+        this.getTile(x - 1, y)?.refreshView(this);
+        this.getTile(x + 1, y)?.refreshView(this);
+        this.getTile(x, y - 1)?.refreshView(this);
+        this.getTile(x, y + 1)?.refreshView(this);
 
-      // Atualiza o grafo de veículos se o edifício for uma estrada
-      if (tile.building.type === BuildingType.road) {
-        this.vehicleGraph.updateTile(x, y, tile.building);
+        // Atualiza o grafo de veículos se o edifício for uma estrada
+        if (tile.building.type === BuildingType.road) {
+          this.vehicleGraph.updateTile(x, y, tile.building);
+        }
+      } else {
+        alert("Insufficient Money.");
       }
     }
   }

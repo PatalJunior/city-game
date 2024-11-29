@@ -23,6 +23,13 @@ export class Building extends SimObject {
    * @type {string}
    */
   status = BuildingStatus.Ok;
+
+  /**
+   * Preço da construção
+   * @type {int}
+  */
+  price = 500;
+
   /**
    * Ícone apresentado no estado da construção
    * @type {Sprite}
