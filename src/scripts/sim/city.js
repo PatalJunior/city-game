@@ -158,7 +158,6 @@ export class City extends THREE.Group {
     // Verifica se o tile já possui um edifício
     if (tile && !tile.building) {
       const hasMoney = this.hasMoneyForBuild(buildingType);
-      console.log(hasMoney);
       if (hasMoney) {
         tile.setBuilding(createBuilding(x, y, buildingType));
         tile.refreshView(this);

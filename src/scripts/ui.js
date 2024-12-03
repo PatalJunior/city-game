@@ -134,9 +134,6 @@ export class GameUI {
   */
   async notify(data) {
     var id = 'notify_' + Math.floor(Math.random()*(1000-1+1)+1).toString();
-
-    console.log(id);
-
     const notiType = this.NotifyTypes[data.type]
 
     $('#notifications-container').append(`
