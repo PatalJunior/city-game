@@ -32,4 +32,14 @@ export default {
     // Idade em que os cidadãos se aposentam
     retirementAge: 65,
   },
+  vehicle: {
+    // The distance travelled per millisecond
+    speed: 0.0005,            
+    // The start/end time where the vehicle should fade
+    fadeTime: 500,  
+    // Maximum lifetime of a vehicle (controls max # of vehicles on screen)     
+    maxLifetime: 10000,
+    // How often vehicles are spawned in milliseconds
+    spawnInterval: 1000     
+  },
 }
