@@ -40,6 +40,18 @@ export class GameUI {
       background: '#246b4d',
       textColor: 'white',
       iconColor: 'white',
+    },
+    moneyTake: {
+      icon: 'fas fa-receipt',
+      background: '#9c0902',
+      textColor: 'white',
+      iconColor: 'white',
+    },
+    moneyGive: {
+      icon: 'fas fa-hand-holding-usd',
+      background: '#33c930',
+      textColor: 'white',
+      iconColor: 'white',
     }
   };
 

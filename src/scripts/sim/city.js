@@ -172,8 +172,8 @@ export class City extends THREE.Group {
         // Atualiza o grafo de veículos se o edifício for uma estrada
         if (tile.building.type === BuildingType.road) {
           this.vehicleGraph.updateTile(x, y, tile.building);
-          await window.ui.notify({type: "success", message: "Estrada Construida."});
-        } else { await window.ui.notify({type: "success", message: "Edifício Construido."}); }
+          await window.ui.notify({type: "moneyTake", message: "Estrada Construida: -100$"});
+        } else { await window.ui.notify({type: "moneyTake", message: "Edifício Construido: -500$"}); }
         
       } else {
         await window.ui.notify({type: "error", message: "Dinheiro Insuficiente."});
@@ -194,7 +194,11 @@ export class City extends THREE.Group {
       if (tile.building.type === BuildingType.road) {
         this.money += 50;
         this.vehicleGraph.updateTile(x, y, null);
-      } else if (tile.building.type === BuildingType.residential) { this.money += 250; }
+        window.ui.notify({type:"moneyGive", message:"Estrada Destruida: +100$"});
+      } else if (tile.building.type === BuildingType.residential) { 
+        window.ui.notify({type:"moneyGive", message:"Edifício Destruido: +500$"}); 
+        this.money += 250; 
+      }
 
       tile.building.dispose(); // Libera recursos do edifício
       tile.setBuilding(null); // Remove o edifício
