@@ -20,6 +20,11 @@ export class GameUI {
   isPaused = false;
 
   /**
+   * Música de Background
+  */
+  backgroundMusic = new Audio('../public/sounds/background.mp3');
+
+  /**
    * Tipos de Notificação
   */
   NotifyTypes = {
@@ -125,8 +130,19 @@ export class GameUI {
     }
   }
 
-  guidGenerator() {
-    
+  PlayBackgroundMusic(status) {
+    if (status) {
+      this.backgroundMusic.play();
+      this.backgroundMusic.volume = 0.25;
+    } else {
+      this.backgroundMusic.stop();
+    }
+  }
+
+  soundEffect(file) {
+    const sound = new Audio(`../public/sounds/${file}.mp3`);
+    sound.volume = 0.25;
+    sound.play();
   }
 
   /**

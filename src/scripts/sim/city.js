@@ -159,6 +159,7 @@ export class City extends THREE.Group {
     if (tile && !tile.building) {
       const hasMoney = this.hasMoneyForBuild(buildingType);
       if (hasMoney) {
+        window.ui.soundEffect("building");
         tile.setBuilding(createBuilding(x, y, buildingType));
         tile.refreshView(this);
 
@@ -199,6 +200,7 @@ export class City extends THREE.Group {
         this.money += 250; 
       }
 
+      window.ui.soundEffect("bulldoze");
       tile.building.dispose(); // Libera recursos do edifício
       tile.setBuilding(null); // Remove o edifício
       tile.refreshView(this);

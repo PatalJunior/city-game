@@ -241,4 +241,5 @@ export class Game {
 // Cria um novo jogo quando a janela é carregada
 window.onload = () => {
   window.game = new Game();
+  window.ui.PlayBackgroundMusic(true);
 }
