@@ -62,7 +62,6 @@ export class City extends THREE.Group {
     // Cria a matriz de tiles (blocos da cidade)
     this.tiles = [];
     for (let x = 0; x < this.size; x++) {
-      console.log(x)
       const column = [];
       for (let y = 0; y < this.size; y++) {
         const tile = new Tile(x, y); // Cria cada tile
@@ -207,8 +206,9 @@ export class City extends THREE.Group {
   /**
    * Desenha ou atualiza a representação visual da cidade
    */
+  
   draw() {
-    // Método para ser implementado no futuro
+    this.vehicleGraph.updateVehicles();
   }
 
   /**

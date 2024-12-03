@@ -115,7 +115,6 @@ export class VehicleGraph extends THREE.Group {
     if (startingTile != null) {
       const origin = startingTile.getRandomNode();
       const destination = origin?.getRandomNextNode();
-
       if (origin && destination) {
         const vehicle = new Vehicle(origin, destination);
         this.vehicles.add(vehicle);
