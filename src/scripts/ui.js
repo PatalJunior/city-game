@@ -22,7 +22,7 @@ export class GameUI {
   /**
    * Música de Background
   */
-  backgroundMusic = new Audio('../public/sounds/background.mp3');
+  backgroundMusic = new Audio('/sounds/background.mp3');
 
   /**
    * Tipos de Notificação
@@ -140,7 +140,7 @@ export class GameUI {
   }
 
   soundEffect(file) {
-    const sound = new Audio(`../public/sounds/${file}.mp3`);
+    const sound = new Audio(`/sounds/${file}.mp3`);
     sound.volume = 0.25;
     sound.play();
   }
