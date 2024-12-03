@@ -213,6 +213,26 @@ export class City extends THREE.Group {
     }
   }
 
+  destroy(x, y) {
+    const tile = this.getTile(x, y);
+
+    if (tile.building) {
+      if (tile.building.type === BuildingType.residential) {
+        this.vehicleGraph.updateTile(x, y, null);
+        window.ui.notify({type:"error", message:"Edifício Explodido!"});
+        window.ui.notify({type:"error", message:"Residentes Não Sobreviveram!"});
+        window.ui.soundEffect("explosion");
+        tile.building.dispose(); // Libera recursos do edifício
+        tile.setBuilding(null); // Remove o edifício
+        tile.refreshView(this);
+        this.getTile(x - 1, y)?.refreshView(this);
+        this.getTile(x + 1, y)?.refreshView(this);
+        this.getTile(x, y - 1)?.refreshView(this);
+        this.getTile(x, y + 1)?.refreshView(this);
+      }
+    }
+  }
+
   /**
    * Desenha ou atualiza a representação visual da cidade
    */
