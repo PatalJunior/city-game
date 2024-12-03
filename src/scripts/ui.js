@@ -120,8 +120,10 @@ export class GameUI {
   /**
    * Sistema de Notificações
   */
-  notify(data) {
-    var id = 'notify_' + ((((1+Math.random()))|0).toString(16).substring(1)+(((1+Math.random()))|0).toString(16).substring(1)+(((1+Math.random()))|0).toString(16).substring(1))
+  async notify(data) {
+    var id = 'notify_' + Math.floor(Math.random()*(1000-1+1)+1).toString();
+
+    console.log(id);
 
     const notiType = this.NotifyTypes[data.type]
 
@@ -145,7 +147,7 @@ export class GameUI {
     setTimeout(() => {
         $('#'+id).addClass('slide-anim-out')
         setTimeout(()=>{$("#"+id).remove()}, 1500)
-    }, "1500")
+    }, 1500)
   }
 }
 
