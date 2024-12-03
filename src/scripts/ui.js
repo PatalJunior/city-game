@@ -19,6 +19,30 @@ export class GameUI {
    */
   isPaused = false;
 
+  /**
+   * Tipos de Notificação
+  */
+  NotifyTypes = {
+    inform: {
+      icon: 'fas fa-info-circle',
+      background: '#1b1d21',
+      textColor: 'white',
+      iconColor: 'white',
+    },
+    error: {
+      icon: 'fas fa-times-circle',
+      background: '#6b2424',
+      textColor: 'white',
+      iconColor: 'white',
+    },
+    success: {
+      icon: 'fas fa-check-circle',
+      background: '#246b4d',
+      textColor: 'white',
+      iconColor: 'white',
+    }
+  };
+
   get gameWindow() {
     return document.getElementById('render-target');
   }
@@ -87,6 +111,41 @@ export class GameUI {
       infoElement.style.visibility = 'hidden';
       infoElement.innerHTML = '';
     }
+  }
+
+  guidGenerator() {
+    
+  }
+
+  /**
+   * Sistema de Notificações
+  */
+  notify(data) {
+    var id = 'notify_' + ((((1+Math.random()))|0).toString(16).substring(1)+(((1+Math.random()))|0).toString(16).substring(1)+(((1+Math.random()))|0).toString(16).substring(1))
+
+    const notiType = this.NotifyTypes[data.type]
+
+    $('#notifications-container').append(`
+        <div class="notification" id="${id}">
+            <div class="icon" id="icon_${id}">
+                <i class="${notiType.icon} icon"></i>
+            </div>
+            <div class="message" id="message_${id}">
+                ${data.message}
+            </div>
+        </div>
+    `)
+    
+    $('#'+id).css('background-color', notiType.background)
+    $('#message_'+id).css('color', notiType.textColor)
+    $('#icon_'+id).css('color', notiType.iconColor)
+    $('#'+id).css('display', 'flex')
+    $('#'+id).addClass('slide-anim-in')
+
+    setTimeout(() => {
+        $('#'+id).addClass('slide-anim-out')
+        setTimeout(()=>{$("#"+id).remove()}, 1500)
+    }, "1500")
   }
 }
 
