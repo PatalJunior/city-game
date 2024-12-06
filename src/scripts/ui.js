@@ -148,7 +148,7 @@ export class GameUI {
   /**
    * Sistema de Notificações
   */
-  async notify(data) {
+  notify(data) {
     var id = 'notify_' + Math.floor(Math.random()*(1000-1+1)+1).toString();
     const notiType = this.NotifyTypes[data.type]
 

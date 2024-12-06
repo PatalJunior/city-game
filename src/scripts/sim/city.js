@@ -152,7 +152,7 @@ export class City extends THREE.Group {
    * @param {number} y Coordenada y
    * @param {string} buildingType Tipo do edifício
    */
-  async placeBuilding(x, y, buildingType) {
+  placeBuilding(x, y, buildingType) {
     const tile = this.getTile(x, y);
 
     // Verifica se o tile já possui um edifício
@@ -172,11 +172,11 @@ export class City extends THREE.Group {
         // Atualiza o grafo de veículos se o edifício for uma estrada
         if (tile.building.type === BuildingType.road) {
           this.vehicleGraph.updateTile(x, y, tile.building);
-          await window.ui.notify({type: "moneyTake", message: "Estrada Construida: -100$"});
-        } else { await window.ui.notify({type: "moneyTake", message: "Edifício Construido: -500$"}); }
+          window.ui.notify({type: "moneyTake", message: "Estrada Construida: -100$"});
+        } else { window.ui.notify({type: "moneyTake", message: "Edifício Construido: -500$"}); }
         
       } else {
-        await window.ui.notify({type: "error", message: "Dinheiro Insuficiente."});
+        window.ui.notify({type: "error", message: "Dinheiro Insuficiente."});
       }
     }
   }
