@@ -84,18 +84,24 @@ export class Building extends SimObject {
    * @returns {string}
    */
   toHTML() {
-    let haveRoadAcess = (this.roadAccess.value ? "Sim" : "Não")
-    let html = `
-      <div class="info-heading">Edifício</div>
-      <span class="info-label">Nome: </span>
-      <span class="info-value">${this.name}</span>
-      <br>
-      <span class="info-label">Tipo: </span>
-      <span class="info-value">${this.type}</span>
-      <br>
-      <span class="info-label">Acesso Por Ruas: </span>
-      <span class="info-value">${haveRoadAcess}</span>
-      <br>`;
+    var html;
+    if (this.type == "residential") {
+      let haveRoadAcess = (this.roadAccess.value ? "Sim" : "<br>Não (Necessita Para Evoluir)")
+      html = `
+        <div class="info-heading">Edifício</div>
+        <span class="info-label">Nome: </span>
+        <span class="info-value">${this.name}</span>
+        <br>
+        <span class="info-label">Tipo: </span>
+        <span class="info-value">$Residência</span>
+        <br>
+        <span class="info-label">Acesso Por Ruas: </span>
+        <span class="info-value">${haveRoadAcess}</span>
+        <br>`;
+    } else if (this.type == "road") {
+      html = `
+        <div class="info-heading">Estrada</div>`;
+    }
 
     return html;
   }

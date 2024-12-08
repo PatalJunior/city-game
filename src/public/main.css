@@ -31,6 +31,8 @@ h1 {
 #instructions {
   position: absolute;
   color: white;
+  text-shadow: black 1.5px 1.5px 1px;
+  font-size: 1.1rem;
   left: 87.5%;
   bottom: 0;
   margin: 8px;
@@ -43,6 +45,7 @@ h1 {
   right: 0;
   bottom: 0;
   color: white;
+  text-shadow: black 1.5px 1.5px 1px;
   font-size: 5em;
   display: flex;
   align-items: center;
@@ -55,15 +58,13 @@ h1 {
 }
 
 #ui-toolbar {
+  background-color: transparent;
   position: absolute;
-  top: 64px;
   bottom: 0px;
 
-  box-shadow: 0px 0px 1px black;
-
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
+  display: flex-row;
+  flex-direction: row;
+  justify-content: space-evenly;
 }
 
 .ui-button {
@@ -73,22 +74,23 @@ h1 {
 
   transition: background-color 0.1s ease-in-out;
   
-  background-color: #1e2331cd;
+  background-color: #333333cd;
+  box-shadow: 1.5px 1.5px 1px black;
   border: none;
-  border-radius: 8px;
+  border-radius: 12px;
 
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  display: flex-row;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: left;
 }
 
 .ui-button.selected {
-  background-color: #3a3f50d3;
-  outline: 2px solid rgb(101, 101, 135);
+  background-color: #1d1d1dd3;
 }
 
 .ui-button:not(.selected):hover {
-  background-color: #121622d3;
+  background-color: #4e4e4ed3;
 }
 
 .ui-container {
@@ -110,39 +112,39 @@ h1 {
   top: 0;
   left: 0px;
   right: 0;
-  height: 48px;
+  height: 70px;
 
-  background-color: #00000048;
   color: white;
   padding: 8px;
 
-  box-shadow: 0px 0px 1px black;
-
-  display: flex;
+  display: flex-row;
   justify-content: space-evenly;
-  align-items: center;
+  align-items: right;
 }
 
 .title-bar-items {
   flex: 1 1 33%;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  justify-content: right;
+  align-items: right;
   font-size: 1.5em;
 }
 
 .title-bar-items.title-bar-center-items {
   font-size: 2em;
+  text-shadow: black 1.5px 1.5px 1px;
 }
 
 #population-icon {
   position: relative;
-  width: 32px;
-  height: 32px;
-  top: -3px;
+  width: 20px;
+  height: 20px;
+  top: 3px;
+  text-shadow: 1.5px 1.5px 1px black;
 }
 
 #population-counter {
+  text-shadow: black 1.5px 1.5px 1px;
   margin-left: 8px;
 }
 
@@ -151,23 +153,24 @@ h1 {
 #info-panel {
   visibility: hidden;
   position: fixed;
-  top: 64px;
-  right: 0px;
+  top: 0px;
+  left: 0px;
   padding: 0; 
   padding-bottom: 16px;
   width: 300px;
-
+  border: 1px solid #13131360;
+  border-end-end-radius: 12px;
   background-color: #00000048;
 }
 
 .info-heading {
   text-align: center;
-  font-size: 1em;
+  font-size: 1.4em;
   margin-top: 12px;
   margin-bottom: 12px;
 
-  background-color: #00000060;
-
+  background-color: #0000009f;
+  text-shadow: 1.5px 1.5px 1px black;
   box-shadow: 0px 0px 1px black;
 
   color: white;
@@ -180,14 +183,16 @@ h1 {
 
 .info-label {
   margin-left: 12px;
-  font-size: 1em;
-  color: rgb(193, 193, 193)
+  font-size: 1.2em;
+  color: #ffffff;
+  text-shadow: 1.5px 1.5px 1px black;
 }
 
 .info-value {
   margin-left: 4px;
   font-size: 1.2em;
   color: #ffffff;
+  text-shadow: 1.5px 1.5px 1px black;
   text-align: right;
 }
 
@@ -197,12 +202,12 @@ h1 {
 }
 
 .info-citizen {
-  background-color: #222941a0;
+  background-color: #111111dc;
   color: white;
   padding: 4px 16px;
   margin: 4px 0;
-  border-radius: 8px;
-  box-shadow: 0 2px 0 0px #151820;
+  border-radius: 6px;
+  box-shadow: 1.5px 1.5px 1px #151820;
 }
 
 .info-citizen-name {

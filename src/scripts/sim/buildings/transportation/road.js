@@ -91,7 +91,7 @@ export class Road extends Building {
   toHTML() {
     let html = super.toHTML();
     html += `
-    <span class="info-label">Style </span>
+    <span class="info-label">Estilo: </span>
     <span class="info-value">${this.style}</span>
     <br>
     `;
