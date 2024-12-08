@@ -48,6 +48,23 @@ export class City extends THREE.Group {
    */
   vehicleGraph;
 
+  /**  
+   * Nível das missões
+  **/
+  level = 1;
+  levels = {
+    [1]: {
+      [1]: {mission: "Obtêm 50 Residentes", citizens: 50, done: false},
+      [2]: {mission: "5 Edifícios Construidos", buildings: 5, done: false},
+      [3]: {mission: "Ter Pelo Menos 1 Rua", road: 1, done: false}
+    },
+    [2]: {
+      [1]: {mission: "Obtêm 100 Residentes", citizens: 100, done: false},
+      [2]: {mission: "10 Edifícios Construidos", buildings: 10, done: false},
+      [3]: {mission: "Ter Pelo Menos 5 Ruas", road: 5, done: false} 
+    }
+  };
+
   // Construtor da cidade
   constructor(size, money, name = 'Patal & oSLaYN City') {
     super(); // Inicializa a classe pai (THREE.Group)
@@ -305,5 +322,8 @@ export class City extends THREE.Group {
     }
 
     return neighbors;
+  }
+
+  toHTML() {
   }
 }

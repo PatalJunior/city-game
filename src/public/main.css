@@ -295,3 +295,18 @@ h1 {
 .slide-anim-out {
     animation: slide-anim-out 1s cubic-bezier(0.230, 1.000, 0.320, 1.000) both;
 }
+
+#missions-container {
+  display: block;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  max-width: 400px;
+  background-color: #f9f9f9;
+}
+
+#missions-container h3 {
+  margin-bottom: 15px;
+  font-size: 18px;
+  color: #333;
+}
