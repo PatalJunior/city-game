@@ -20,6 +20,12 @@ export class GameUI {
   isPaused = false;
 
   /**
+   * Estado do jogo, não concluido, concluido
+   * @type {boolean}
+   */
+  isFinished = false;
+
+  /**
    * Música de Background
   */
   backgroundMusic = new Audio('/sounds/background.mp3');
@@ -102,6 +108,18 @@ export class GameUI {
   }
 
   /**
+   * Altera o estado de pausa do jogo
+   */
+  toggleFinished() {
+    this.isFinished = !this.isFinished;
+    if (this.isFinished) {
+      document.getElementById('finished-text').style.visibility = 'visible';
+    } else {
+      document.getElementById('finished-text').style.visibility = 'hidden';
+    }
+  }
+
+  /**
    * Atualiza os valores na barra de título
    * @param {Game} game 
    */
@@ -109,6 +127,35 @@ export class GameUI {
     document.getElementById('city-name').innerHTML = game.city.name;
     document.getElementById('population-counter').innerHTML = game.city.population;
     document.getElementById('city-money').innerHTML = game.city.money+"$";
+    document.getElementById('city-level').innerHTML = "Nível: "+game.city.level+" ("+game.city.missionCounter+"/"+Object.keys(game.city.levels[game.city.level]).length+")";
+
+    const missionContainer = document.getElementById('missions-container');
+    missionContainer.innerHTML = "";
+
+    for (const key of Object.keys(game.city.levels[game.city.level])) {
+      const mission = game.city.levels[game.city.level][key];
+      const missionDiv = document.createElement('div');
+
+      const missionIcon = document.createElement('i');
+      missionIcon.classList.add('missions-container-text');
+      if (mission.done) {
+        missionIcon.classList.add('fas', 'fa-check');
+        missionIcon.style.color = '#02CC16';
+      } else {
+        missionIcon.classList.add('fas', 'fa-times');
+        missionIcon.style.color = '#B51504';
+      }
+
+      const missionText = document.createElement('span');
+      missionText.classList.add('missions-container-text');
+      missionText.textContent = mission.mission + " - ";
+
+      missionText.appendChild(missionIcon);
+
+      missionDiv.appendChild(missionText);
+      missionContainer.appendChild(missionDiv);
+    }
+
 
     const date = new Date('1/1/2023');
     date.setDate(date.getDate() + game.city.simTime);

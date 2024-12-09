@@ -52,14 +52,15 @@ export class City extends THREE.Group {
    * Nível das missões
   **/
   level = 1;
+  missionCounter = 0;
   levels = {
     [1]: {
-      [1]: {mission: "Obtêm 50 Residentes", citizens: 50, done: false},
+      [1]: {mission: "Obtêm 35 Residentes", citizens: 35, done: false},
       [2]: {mission: "5 Edifícios Construidos", buildings: 5, done: false},
       [3]: {mission: "Ter Pelo Menos 1 Rua", road: 1, done: false}
     },
     [2]: {
-      [1]: {mission: "Obtêm 100 Residentes", citizens: 100, done: false},
+      [1]: {mission: "Obtêm 75 Residentes", citizens: 75, done: false},
       [2]: {mission: "10 Edifícios Construidos", buildings: 10, done: false},
       [3]: {mission: "Ter Pelo Menos 5 Ruas", road: 5, done: false} 
     }
@@ -136,6 +137,8 @@ export class City extends THREE.Group {
    */
   simulate(steps = 1) {
     let count = 0;
+    var roadCount = 0;
+    var buildCount = 0;
     while (count++ < steps) {
       // Atualiza os serviços
       this.services.forEach((service) => service.simulate(this));
@@ -143,9 +146,54 @@ export class City extends THREE.Group {
       // Atualiza cada tile
       for (let x = 0; x < this.size; x++) {
         for (let y = 0; y < this.size; y++) {
+          const building = this.getTile(x, y).building;
+          if (building) {
+            if (building.type === BuildingType.residential) {
+              buildCount++;
+            } else if (building.type === BuildingType.road) {
+              roadCount++;
+            }
+          }
           this.getTile(x, y).simulate(this);
         }
       }
+    }
+    
+    console.log(buildCount, roadCount);
+
+    var counter = 0;
+    this.missionCounter = 0;
+    for (const key of Object.keys(this.levels[this.level])) {
+      const mission = this.levels[this.level][key];
+      if (mission.citizens) {
+        if (this.population >= mission.citizens) {
+          mission.done = true;
+        }
+      } else if (mission.buildings) {
+        if (buildCount >= mission.buildings) {
+          mission.done = true;
+        }
+      } else if (mission.road) {
+        if (roadCount >= mission.road) {
+          mission.done = true;
+        }
+      }
+      if (mission.done) {
+        this.missionCounter++;
+        counter++;
+      }
+    }
+
+    if (counter == 3) {
+      if (this.level == 1) {
+        this.level++;
+        this.money += 2500;
+        window.ui.notify({type: "moneyGive", message: "Parabéns! Subiste de Nível: +2500$"});
+      } else if (this.level == 2) {
+        window.ui.notify({type: "success", message: "Parabéns! Concluiste as Missões!"});
+        window.ui.toggleFinished();
+      }
+      counter = 0;
     }
     this.simTime++; // Incrementa o tempo da simulação
   }
@@ -156,9 +204,11 @@ export class City extends THREE.Group {
    */
   hasMoneyForBuild(buildingType) {
     if (buildingType == BuildingType.residential && this.money >= 500) {
-      return ((this.money -= 500)>=500);
+      this.money -= 500;
+      return true;
     } else if (buildingType == BuildingType.road && this.money >= 100) {
-      return ((this.money -= 100)>=100);
+      this.money -= 100;
+      return true;
     }
     return false
   }
@@ -211,9 +261,9 @@ export class City extends THREE.Group {
       if (tile.building.type === BuildingType.road) {
         this.money += 50;
         this.vehicleGraph.updateTile(x, y, null);
-        window.ui.notify({type:"moneyGive", message:"Estrada Destruida: +100$"});
+        window.ui.notify({type:"moneyGive", message:"Estrada Destruida: +50$"});
       } else if (tile.building.type === BuildingType.residential) { 
-        window.ui.notify({type:"moneyGive", message:"Edifício Destruido: +500$"}); 
+        window.ui.notify({type:"moneyGive", message:"Edifício Destruido: +250$"}); 
         this.money += 250; 
       }
 

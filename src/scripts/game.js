@@ -152,7 +152,7 @@ export class Game {
    * Avança a simulação em um passo
    */
   simulate() {
-    if (window.ui.isPaused) return;
+    if (window.ui.isPaused || window.ui.isFinished) return;
 
     // Atualiza o modelo de dados da cidade primeiro, depois atualiza a cena
     this.city.simulate(1);
