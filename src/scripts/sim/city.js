@@ -158,8 +158,6 @@ export class City extends THREE.Group {
         }
       }
     }
-    
-    console.log(buildCount, roadCount);
 
     var counter = 0;
     this.missionCounter = 0;
@@ -306,6 +304,7 @@ export class City extends THREE.Group {
   
   draw() {
     // Método para ser implementado no futuro
+    if (window.ui.isPaused || window.ui.isFinished) { return; }
     this.vehicleGraph.updateVehicles();
   }
 

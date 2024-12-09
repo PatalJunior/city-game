@@ -61,6 +61,8 @@ export class Vehicle extends SimObject {
    * Updates the vehicle position each render frame
    */
   simulate() {
+    if (window.ui.isPaused || window.ui.isFinished) { return; }
+
     if (!this.origin || !this.destination) {
       this.dispose();
       return;

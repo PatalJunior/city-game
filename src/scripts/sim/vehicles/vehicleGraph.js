@@ -110,6 +110,7 @@ export class VehicleGraph extends THREE.Group {
   }
 
   spawnVehicle() {
+    if (window.ui.isPaused || window.ui.isFinished) { return; }
     const startingTile = this.getStartingTile();
 
     if (startingTile != null) {
