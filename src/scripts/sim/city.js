@@ -55,12 +55,12 @@ export class City extends THREE.Group {
   missionCounter = 0;
   levels = {
     [1]: {
-      [1]: {mission: "Obtêm 35 Residentes", citizens: 35, done: false},
+      [1]: {mission: "Obtem 35 Residentes", citizens: 35, done: false},
       [2]: {mission: "5 Edifícios Construidos", buildings: 5, done: false},
       [3]: {mission: "Ter Pelo Menos 1 Rua", road: 1, done: false}
     },
     [2]: {
-      [1]: {mission: "Obtêm 75 Residentes", citizens: 75, done: false},
+      [1]: {mission: "Obtem 75 Residentes", citizens: 75, done: false},
       [2]: {mission: "10 Edifícios Construidos", buildings: 10, done: false},
       [3]: {mission: "Ter Pelo Menos 5 Ruas", road: 5, done: false} 
     }

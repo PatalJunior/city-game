@@ -93,7 +93,7 @@ export class Building extends SimObject {
         <span class="info-value">${this.name}</span>
         <br>
         <span class="info-label">Tipo: </span>
-        <span class="info-value">$Residência</span>
+        <span class="info-value">Residência</span>
         <br>
         <span class="info-label">Acesso Por Ruas: </span>
         <span class="info-value">${haveRoadAcess}</span>
