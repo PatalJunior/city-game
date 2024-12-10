@@ -23,7 +23,7 @@ export default {
     },
     roadAccess: {
       // Distância máxima para buscar uma estrada ao determinar o acesso rodoviário
-      searchDistance: 3,
+      searchDistance: 1,
     },
   },
   citizen: {

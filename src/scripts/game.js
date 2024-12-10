@@ -60,7 +60,7 @@ export class Game {
     window.assetManager = new AssetManager(() => {
       window.ui.hideLoadingText();
 
-      this.city = new City(8, 5000);
+      this.city = new City(6, 5000);
       this.initialize(this.city);
       this.start();
 

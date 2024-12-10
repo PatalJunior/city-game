@@ -29,7 +29,7 @@ export class City extends THREE.Group {
    * Tamanho da cidade em ladrilhos
    * @type {number}
    */
-  size = 8;
+  size = 6;
   
   /**
    * Tempo atual da simulação
