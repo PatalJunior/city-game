@@ -2,7 +2,6 @@ import * as THREE from 'three';
 import { VehicleGraphTile } from './vehicleGraphTile.js';
 import { VehicleGraphHelper } from './vehicleGraphHelper.js';
 import config from '../../config.js';
-import { Vehicle } from './vehicle.js';
 import { Road } from '../buildings/transportation/road.js';
 
 export class VehicleGraph extends THREE.Group {
@@ -15,9 +14,6 @@ export class VehicleGraph extends THREE.Group {
      * @type {VehicleGraphTile[][]}
      */
     this.tiles = [];
-
-    this.vehicles = new THREE.Group();
-    this.add(this.vehicles);
   
     /**
      * @type {VehicleGraphHelper}
@@ -35,14 +31,6 @@ export class VehicleGraph extends THREE.Group {
     }
 
     this.helper.refreshView(this);
-
-    setInterval(this.spawnVehicle.bind(this), config.vehicle.spawnInterval);
-  }
-
-  updateVehicles() {
-    for (const vehicle of this.vehicles.children) {
-      vehicle.simulate();
-    }
   }
 
   /**
@@ -106,20 +94,6 @@ export class VehicleGraph extends THREE.Group {
       return this.tiles[x][y];
     } else {
       return null;
-    }
-  }
-
-  spawnVehicle() {
-    if (window.ui.isPaused || window.ui.isFinished) { return; }
-    const startingTile = this.getStartingTile();
-
-    if (startingTile != null) {
-      const origin = startingTile.getRandomNode();
-      const destination = origin?.getRandomNextNode();
-      if (origin && destination) {
-        const vehicle = new Vehicle(origin, destination);
-        this.vehicles.add(vehicle);
-      }
     }
   }
 

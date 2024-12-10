@@ -305,7 +305,6 @@ export class City extends THREE.Group {
   draw() {
     // Método para ser implementado no futuro
     if (window.ui.isPaused || window.ui.isFinished) { return; }
-    this.vehicleGraph.updateVehicles();
   }
 
   /**
