@@ -8,15 +8,30 @@ export class InputManager {
    */
   mouse = { x: 0, y: 0 };
   /**
+   * Botão esquerdo do rato foi premido (1 frame)
+   * @type {boolean}
+   */
+  wasLeftMousePressed = false;
+  /**
    * Botão esquerdo do rato está a ser premido
    * @type {boolean}
    */
   isLeftMouseDown = false;
   /**
+   * Botão esquerdo do rato foi premido (1 frame)
+   * @type {boolean}
+   */
+  wasMiddleMousePressed = false;
+  /**
    * Botão do meio do rato está a ser premido
    * @type {boolean}
    */
   isMiddleMouseDown = false;
+  /**
+   * Botão direito do rato foi premido (1 frame)
+   * @type {boolean}
+   */
+  wasRightMousePressed = false;
   /**
    * Botão direito do rato está a ser premido
    * @type {boolean}
@@ -34,15 +49,19 @@ export class InputManager {
    * Controlo do evento 'mousedown'
    * @param {MouseEvent} event 
    */
+  
   #onMouseDown(event) {
     if (event.button === 0) {
       this.isLeftMouseDown = true;
+      this.wasLeftMousePressed = true;
     }
     if (event.button === 1) {
       this.isMiddleMouseDown = true;
+      this.wasMiddleMousePressed = true;
     }
     if (event.button === 2) {
       this.isRightMouseDown = true;
+      this.wasRightMousePressed = true;
     }
   }
 
@@ -72,5 +91,13 @@ export class InputManager {
     this.isMiddleMouseDown = event.buttons & 4;
     this.mouse.x = event.clientX;
     this.mouse.y = event.clientY;
+  }
+  /**
+   * Update do tick para resetar mouse click
+   */
+  tick() {
+    this.wasLeftMousePressed = false;
+    this.wasRightMousePressed = false;
+    this.wasMiddleMousePressed = false;
   }
 }

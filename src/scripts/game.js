@@ -141,11 +141,12 @@ export class Game {
     this.city.draw();
     this.updateFocusedObject();
 
-    if (this.inputManager.isLeftMouseDown) {
+    if (this.inputManager.wasLeftMousePressed) {
       this.useTool();
     }
 
     this.renderer.render(this.scene, this.cameraManager.camera);
+    this.inputManager.tick();
   }
 
   /**
