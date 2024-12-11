@@ -4,7 +4,7 @@ import { CameraManager } from './camera.js';
 import { InputManager } from './input.js';
 import { City } from './sim/city.js';
 import { SimObject } from './sim/simObject.js';
-import { MissionType } from './sim/missions/missionType.js';
+import { missions } from './missions.js';
 
 /** 
  * Gerenciador da cena do Three.js. Lida com a renderização de um objeto `City`.
@@ -61,50 +61,8 @@ export class Game {
     window.assetManager = new AssetManager(() => {
       window.ui.hideLoadingText();
 
-      var levelData = [
-        [
-          {
-            missionType: MissionType.road,
-            missionDescription: 'Construa 5 estradas',
-            missionObjectiveCount: 5,
-            eventName: 'roadBuilt'
-          },
-          {
-            missionType: MissionType.residential,
-            missionDescription: 'Construa 5 residencias',
-            missionObjectiveCount: 5,
-            eventName: 'residenceBuilt'
-          },
-          {
-            missionType: MissionType.resident,
-            missionDescription: 'Obtenha 30 residentes',
-            missionObjectiveCount: 30,
-            eventName: 'newResident'
-          },
-        ],
-        [
-          {
-            missionType: MissionType.road,
-            missionDescription: 'Construa 10 estradas',
-            missionObjectiveCount: 10,
-            eventName: 'roadBuilt'
-          },
-          {
-            missionType: MissionType.residential,
-            missionDescription: 'Construa 10 residencias',
-            missionObjectiveCount: 10,
-            eventName: 'residenceBuilt'
-          },
-          {
-            missionType: MissionType.resident,
-            missionDescription: 'Obtenha 60 residentes',
-            missionObjectiveCount: 60,
-            eventName: 'newResident'
-          },
-        ],
-      ]
 
-      this.city = new City(6, 5000,'Patal & oSLaYN City', levelData);
+      this.city = new City(6, 5000,'Patal & oSLaYN City', missions);
       this.initialize(this.city);
       this.start();
 

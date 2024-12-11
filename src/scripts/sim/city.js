@@ -101,8 +101,6 @@ export class City extends THREE.Group {
     if (missionData)
       this.missionLevel = new MissionLevel(missionData)
 
-    console.log("missionDataxxzsxds")
-    console.log(this.missionLevel)
     this.services = []; // Inicializa a lista de serviços
 
     // Inicializa o grafo de veículos
