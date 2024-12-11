@@ -325,3 +325,7 @@ h1 {
   font-size: 24px;
   text-shadow: 1.5px 1.5px 1px black;
 }
+
+.moneyGiveToast {
+  background: linear-gradient(to right bottom, #33c930, #30cb31, #2ecc32, #2ace34, #27cf35, #25d236, #23d537, #21d838, #21dd39, #21e339, #20e83a, #20ee3a);
+}

@@ -9,9 +9,9 @@ import 'notyf/notyf.min.css'; // for React, Vue and Svelte
 
 
 var notyf = new Notyf({
-  duration: 1000,
+  duration: 3000,
   position: {
-    x: 'right',
+    x: 'left',
     y: 'top',
   },
   types: [
@@ -53,7 +53,7 @@ var notyf = new Notyf({
     },
     {
       type: 'moneyGive',
-      background: '#33c930',
+      className: 'moneyGiveToast', // Exemplo com classe css
       icon: {
         className: 'fas fa-hand-holding-usd',
         tagName: 'i',
@@ -234,5 +234,5 @@ export class GameUI {
     });
   }
 }
-
+window.notyf = notyf
 window.ui = new GameUI();
