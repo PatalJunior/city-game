@@ -307,6 +307,7 @@ h1 {
 }
 
 #missions-container {
+  margin-top: 20px;
   display: block;
   position: absolute;
   right: 5px;

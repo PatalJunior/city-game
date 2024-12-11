@@ -1,3 +1,4 @@
+import { MissionType } from "./sim/missions/missionType"
 export var missions = [
     [
         {
