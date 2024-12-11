@@ -3,6 +3,63 @@ import { SimObject } from './sim/simObject';
 import playIconUrl from '/icons/play-color.png';
 import pauseIconUrl from '/icons/pause-color.png';
 
+import { Notyf } from 'notyf';
+
+const notyf = new Notyf({
+  duration: 1000,
+  position: {
+    x: 'right',
+    y: 'top',
+  },
+  types: [
+    {
+      type: 'inform',
+      background: '#1b1d21',
+      icon: {
+        className: 'fas fa-info-circle',
+        tagName: 'i',
+        color: 'white'
+      }
+    },
+    {
+      type: 'error',
+      background: '#6b2424',
+      icon: {
+        className: 'fas fa-times-circle',
+        tagName: 'i',
+        color: 'white'
+      }
+    },
+    {
+      type: 'success',
+      background: '#246b4d',
+      icon: {
+        className: 'fas fa-check-circle',
+        tagName: 'i',
+        color: 'white'
+      }
+    },
+    {
+      type: 'moneyTake',
+      background: '#9c0902',
+      icon: {
+        className: 'fas fa-receipt',
+        tagName: 'i',
+        color: 'white'
+      }
+    },
+    {
+      type: 'moneyGive',
+      background: '#33c930',
+      icon: {
+        className: 'fas fa-hand-holding-usd',
+        tagName: 'i',
+        color: 'white'
+      }
+    },
+  ]
+});
+
 export class GameUI {
   /**
    * Ferramenta selecionada
@@ -33,38 +90,7 @@ export class GameUI {
   /**
    * Tipos de Notificação
   */
-  NotifyTypes = {
-    inform: {
-      icon: 'fas fa-info-circle',
-      background: '#1b1d21',
-      textColor: 'white',
-      iconColor: 'white',
-    },
-    error: {
-      icon: 'fas fa-times-circle',
-      background: '#6b2424',
-      textColor: 'white',
-      iconColor: 'white',
-    },
-    success: {
-      icon: 'fas fa-check-circle',
-      background: '#246b4d',
-      textColor: 'white',
-      iconColor: 'white',
-    },
-    moneyTake: {
-      icon: 'fas fa-receipt',
-      background: '#9c0902',
-      textColor: 'white',
-      iconColor: 'white',
-    },
-    moneyGive: {
-      icon: 'fas fa-hand-holding-usd',
-      background: '#33c930',
-      textColor: 'white',
-      iconColor: 'white',
-    }
-  };
+
 
   get gameWindow() {
     return document.getElementById('render-target');
@@ -195,31 +221,14 @@ export class GameUI {
   /**
    * Sistema de Notificações
   */
-  notify(data) {
-    var id = 'notify_' + Math.floor(Math.random()*(1000-1+1)+1).toString();
-    const notiType = this.NotifyTypes[data.type]
-
-    $('#notifications-container').append(`
-        <div class="notification" id="${id}">
-            <div class="icon" id="icon_${id}">
-                <i class="${notiType.icon} icon"></i>
-            </div>
-            <div class="message" id="message_${id}">
-                ${data.message}
-            </div>
-        </div>
-    `)
-    
-    $('#'+id).css('background-color', notiType.background)
-    $('#message_'+id).css('color', notiType.textColor)
-    $('#icon_'+id).css('color', notiType.iconColor)
-    $('#'+id).css('display', 'flex')
-    $('#'+id).addClass('slide-anim-in')
-
-    setTimeout(() => {
-        $('#'+id).addClass('slide-anim-out')
-        setTimeout(()=>{$("#"+id).remove()}, 1500)
-    }, 1500)
+  /**
+   * Sistema de Notificações
+   */
+  notify(type, message) {
+    notyf.open({
+      type: type,
+      message: message,
+    });
   }
 }
 

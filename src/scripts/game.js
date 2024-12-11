@@ -4,6 +4,7 @@ import { CameraManager } from './camera.js';
 import { InputManager } from './input.js';
 import { City } from './sim/city.js';
 import { SimObject } from './sim/simObject.js';
+import { MissionType } from './sim/missions/missionType.js';
 
 /** 
  * Gerenciador da cena do Three.js. Lida com a renderização de um objeto `City`.
@@ -32,7 +33,7 @@ export class Game {
   constructor(city) {
     this.city = city;
 
-    this.renderer = new THREE.WebGLRenderer({ 
+    this.renderer = new THREE.WebGLRenderer({
       antialias: true
     });
     this.scene = new THREE.Scene();
@@ -60,7 +61,50 @@ export class Game {
     window.assetManager = new AssetManager(() => {
       window.ui.hideLoadingText();
 
-      this.city = new City(6, 5000);
+      var levelData = [
+        [
+          {
+            missionType: MissionType.road,
+            missionDescription: 'Construa 5 estradas',
+            missionObjectiveCount: 5,
+            eventName: 'roadBuilt'
+          },
+          {
+            missionType: MissionType.residential,
+            missionDescription: 'Construa 5 residencias',
+            missionObjectiveCount: 5,
+            eventName: 'residenceBuilt'
+          },
+          {
+            missionType: MissionType.resident,
+            missionDescription: 'Obtenha 30 residentes',
+            missionObjectiveCount: 30,
+            eventName: 'newResident'
+          },
+        ],
+        [
+          {
+            missionType: MissionType.road,
+            missionDescription: 'Construa 10 estradas',
+            missionObjectiveCount: 10,
+            eventName: 'roadBuilt'
+          },
+          {
+            missionType: MissionType.residential,
+            missionDescription: 'Construa 10 residencias',
+            missionObjectiveCount: 10,
+            eventName: 'residenceBuilt'
+          },
+          {
+            missionType: MissionType.resident,
+            missionDescription: 'Obtenha 60 residentes',
+            missionObjectiveCount: 60,
+            eventName: 'newResident'
+          },
+        ],
+      ]
+
+      this.city = new City(6, 5000,'Patal & oSLaYN City', levelData);
       this.initialize(this.city);
       this.start();
 
@@ -82,7 +126,7 @@ export class Game {
 
   #setupGrid(city) {
     // Adiciona a grade
-    const gridMaterial = new THREE.MeshBasicMaterial({ 
+    const gridMaterial = new THREE.MeshBasicMaterial({
       color: 0x000000,
       map: window.assetManager.textures['grid'],
       transparent: true,
@@ -119,7 +163,7 @@ export class Game {
     this.scene.add(sun);
     this.scene.add(new THREE.AmbientLight(0xffffff, 0.5));
   }
-  
+
   /**
    * Inicia o renderizador
    */
@@ -185,7 +229,7 @@ export class Game {
         break;
     }
   }
-  
+
   /**
    * Define o objeto atualmente selecionado e o destaca
    */
@@ -198,7 +242,7 @@ export class Game {
   /**
    * Define o objeto que está atualmente em destaque
    */
-  updateFocusedObject() {  
+  updateFocusedObject() {
     this.focusedObject?.setFocused(false);
     const newObject = this.#raycast();
     if (newObject !== this.focusedObject) {

@@ -4,7 +4,7 @@ import { createBuilding } from './buildings/buildingFactory.js';
 import { Tile } from './tile.js';
 import { VehicleGraph } from './vehicles/vehicleGraph.js';
 import { SimService } from './services/simService.js';
-
+import { MissionLevel } from './missions/missionLevel.js';
 export class City extends THREE.Group {
   /**
    * Grupo separado para organizar meshes de depuração
@@ -48,6 +48,13 @@ export class City extends THREE.Group {
    */
   vehicleGraph;
 
+  /**
+   * Lista de missões a completar no nivel
+   * @type {MissionLevel}
+   */
+  missionLevel;
+
+
   /**  
    * Nível das missões
   **/
@@ -67,12 +74,13 @@ export class City extends THREE.Group {
   };
 
   // Construtor da cidade
-  constructor(size, money, name = 'Patal & oSLaYN City') {
+  constructor(size, money, name = 'Patal & oSLaYN City', missionData) {
     super(); // Inicializa a classe pai (THREE.Group)
 
     this.name = name;
     this.size = size;
     this.money = money;
+
     
     this.add(this.debugMeshes); // Adiciona meshes de depuração
     this.add(this.root);        // Adiciona o nó raiz
@@ -90,6 +98,11 @@ export class City extends THREE.Group {
       this.tiles.push(column);      // Adiciona a coluna à matriz
     }
 
+    if (missionData)
+      this.missionLevel = new MissionLevel(missionData)
+
+    console.log("missionDataxxzsxds")
+    console.log(this.missionLevel)
     this.services = []; // Inicializa a lista de serviços
 
     // Inicializa o grafo de veículos
@@ -186,9 +199,9 @@ export class City extends THREE.Group {
       if (this.level == 1) {
         this.level++;
         this.money += 2500;
-        window.ui.notify({type: "moneyGive", message: "Parabéns! Subiste de Nível: +2500$"});
+        window.ui.notify('moneyGive','Parabéns! Subiste de Nível: +2500$');
       } else if (this.level == 2) {
-        window.ui.notify({type: "success", message: "Parabéns! Concluiste as Missões!"});
+        window.ui.notify('success','Parabéns! Concluiste as Missões!');
         window.ui.toggleFinished();
       }
       counter = 0;
@@ -237,13 +250,15 @@ export class City extends THREE.Group {
         // Atualiza o grafo de veículos se o edifício for uma estrada
         if (tile.building.type === BuildingType.road) {
           this.vehicleGraph.updateTile(x, y, tile.building);
-          window.ui.notify({type: "moneyTake", message: "Estrada Construida: -100$"});
-        } else { window.ui.notify({type: "moneyTake", message: "Edifício Construido: -500$"}); }
+          window.ui.notify('moneyTake', 'Estrada Construida: -100$');
+        } else { window.ui.notify('moneyTake', 'Edifício Construido: -500$'); }
         
       } else {
-        window.ui.notify({type: "error", message: "Dinheiro Insuficiente."});
+        window.ui.notify('error', 'Dinheiro Insuficiente.');
       }
     }
+
+    
   }
 
   /**
@@ -259,9 +274,9 @@ export class City extends THREE.Group {
       if (tile.building.type === BuildingType.road) {
         this.money += 50;
         this.vehicleGraph.updateTile(x, y, null);
-        window.ui.notify({type:"moneyGive", message:"Estrada Destruida: +50$"});
+        window.ui.notify('moneyGive', 'Estrada Destruida: +50$');
       } else if (tile.building.type === BuildingType.residential) { 
-        window.ui.notify({type:"moneyGive", message:"Edifício Destruido: +250$"}); 
+        window.ui.notify('moneyGive', 'Edifício Destruido: +250$'); 
         this.money += 250; 
       }
 
@@ -284,8 +299,8 @@ export class City extends THREE.Group {
     if (tile.building) {
       if (tile.building.type === BuildingType.residential) {
         this.vehicleGraph.updateTile(x, y, null);
-        window.ui.notify({type:"error", message:"Edifício Explodido!"});
-        window.ui.notify({type:"error", message:"Residentes Não Sobreviveram!"});
+        window.ui.notify('error', 'Edifício Explodido!');
+        window.ui.notify('error', 'Residentes Não Sobreviveram!');
         window.ui.soundEffect("explosion");
         tile.building.dispose(); // Libera recursos do edifício
         tile.setBuilding(null); // Remove o edifício
@@ -347,6 +362,39 @@ export class City extends THREE.Group {
 
     return null; // Nenhum tile encontrado
   }
+
+  /**
+ * Encontra todos os tiles que atendem aos critérios fornecidos
+ * @param {(Tile) => (boolean)} filter Função para filtrar tiles
+ * @returns {Tile[]} Uma lista de tiles que atendem aos critérios
+ */
+findAllTiles(filter) {
+  const tilesToSearch = this.tiles.flat();
+  const visited = new Set();
+  const matchingTiles = [];
+
+  while (tilesToSearch.length > 0) {
+    const tile = tilesToSearch.shift();
+
+    // Ignora tiles já visitados
+    if (visited.has(tile.id)) {
+      continue;
+    } else {
+      visited.add(tile.id);
+    }
+
+    // Adiciona o tile à lista se passar nos critérios
+    if (filter(tile)) {
+      matchingTiles.push(tile);
+    }
+
+    // Adiciona vizinhos à lista de busca
+    tilesToSearch.push(...this.getTileNeighbors(tile.x, tile.y));
+  }
+
+  return matchingTiles; // Retorna todos os tiles encontrados
+}
+
 
   /**
    * Retorna os vizinhos de um tile
