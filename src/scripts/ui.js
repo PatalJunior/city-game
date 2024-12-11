@@ -4,8 +4,11 @@ import playIconUrl from '/icons/play-color.png';
 import pauseIconUrl from '/icons/pause-color.png';
 
 import { Notyf } from 'notyf';
+import 'notyf/notyf.min.css'; // for React, Vue and Svelte
 
-const notyf = new Notyf({
+
+
+var notyf = new Notyf({
   duration: 1000,
   position: {
     x: 'right',
