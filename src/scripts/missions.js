@@ -45,5 +45,28 @@ export var missions = [
             },
         ],
         reward: 4000
+    },
+    {
+        missions: [
+            {
+                missionType: MissionType.road,
+                missionDescription: 'Construa 20 estradas',
+                missionObjectiveCount: 20,
+                eventName: 'roadBuilt'
+            },
+            {
+                missionType: MissionType.residential,
+                missionDescription: 'Construa 15 residencias',
+                missionObjectiveCount: 15,
+                eventName: 'residenceBuilt'
+            },
+            {
+                missionType: MissionType.resident,
+                missionDescription: 'Obtenha 100 residentes',
+                missionObjectiveCount: 100,
+                eventName: 'updateResident'
+            },
+        ],
+        reward: 8000
     }
 ];
