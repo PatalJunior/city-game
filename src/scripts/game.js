@@ -33,6 +33,18 @@ export class Game {
    */
   selectedObject = null;
 
+  /**
+   * Velocidade da simulação
+   * @type {Integer}
+   */
+  simSpeed = 1;
+
+  /**
+   * Guarda a referencia da grid
+   * @type {THREE.Mesh}
+   */
+  grid = null;
+
   constructor(city) {
     this.city = city;
 
@@ -65,7 +77,7 @@ export class Game {
       window.ui.hideLoadingText();
 
 
-      this.city = new City(6, 5000,'Patal & oSLaYN City', missions);
+      this.city = new City(5, 5000,'Patal & oSLaYN City', missions);
       this.initialize(this.city);
       this.start();
 
@@ -83,11 +95,19 @@ export class Game {
     this.scene.clear();
     this.scene.add(city);
     this.#setupLights();
-    this.#setupGrid(city);
+    this.setupGrid(city);
   }
 
-  #setupGrid(city) {
-    // Adiciona a grade
+  setupGrid(city) {
+    // Remove the old grid if it exists
+    if (this.grid) {
+      this.scene.remove(this.grid);
+      this.grid.geometry.dispose();
+      this.grid.material.dispose();
+      this.grid = null; // Clear the reference
+    }
+  
+    // Create the new grid
     const gridMaterial = new THREE.MeshBasicMaterial({
       color: 0x000000,
       map: window.assetManager.textures['grid'],
@@ -95,16 +115,20 @@ export class Game {
       opacity: 0.2
     });
     gridMaterial.map.repeat = new THREE.Vector2(city.size, city.size);
-    gridMaterial.map.wrapS = city.size;
-    gridMaterial.map.wrapT = city.size;
-
+    gridMaterial.map.wrapS = THREE.RepeatWrapping;
+    gridMaterial.map.wrapT = THREE.RepeatWrapping;
+  
     const grid = new THREE.Mesh(
       new THREE.BoxGeometry(city.size, 0.1, city.size),
       gridMaterial
     );
     grid.position.set(city.size / 2 - 0.5, -0.04, city.size / 2 - 0.5);
+  
+    // Add the new grid to the scene and save the reference
     this.scene.add(grid);
+    this.grid = grid;
   }
+  
 
   /**
    * Configura as luzes da cena
@@ -162,7 +186,7 @@ export class Game {
     if (window.ui.isPaused || window.ui.isFinished) return;
 
     // Atualiza o modelo de dados da cidade primeiro, depois atualiza a cena
-    this.city.simulate(1);
+    this.city.simulate(this.simSpeed);
 
     window.ui.updateTitleBar(this);
     window.ui.updateQuestPanel(this);

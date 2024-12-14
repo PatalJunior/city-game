@@ -18,7 +18,8 @@ export class MissionList {
      * @param {Array} missionData - Dados das missões a serem adicionadas
      */
     constructor(missionData, reward) {
-        
+        // console.log("Constructor")
+        // console.log(missionData, reward)
         if (Array.isArray(missionData)) {
             this.missionList = missionData.map(data => new Mission(
                 data.missionType,

@@ -50,10 +50,12 @@ export class ResidentsModule extends SimModule {
     // Se o edifício for abandonado, todos os residentes serão despejados e nenhum novo residente pode residir
     if (this.#zone.development.state === DevelopmentState.abandoned && this.#residents.length > 0) {
       this.evictAll();
+      window.game.residentUpdateEvent();
     } else if (this.#zone.development.state === DevelopmentState.developed) {
       // Mudar para lá novos residentes no caso de haver espaço
       if (this.#residents.length < this.maximum && Math.random() < config.modules.residents.residentMoveInChance) {
         this.#residents.push(new Citizen(this.#zone));
+        window.game.residentUpdateEvent();
       }
     }
 
@@ -61,7 +63,6 @@ export class ResidentsModule extends SimModule {
       resident.simulate(city);
     }
 
-    window.game.residentUpdateEvent();
   }
 
   /**
@@ -72,6 +73,7 @@ export class ResidentsModule extends SimModule {
       resident.dispose();
     }
     this.#residents = [];
+    window.game.residentUpdateEvent();
   }
 
   /**

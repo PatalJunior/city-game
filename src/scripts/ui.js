@@ -156,7 +156,7 @@ export class GameUI {
     document.getElementById('city-name').innerHTML = game.city.name;
     document.getElementById('population-counter').innerHTML = game.city.population;
     document.getElementById('city-money').innerHTML = game.city.money+"$";
-    document.getElementById('city-level').innerHTML = "Nível: "+game.city.level+" ("+game.city.missionCounter+"/"+Object.keys(game.city.levels[game.city.level]).length+")";
+    document.getElementById('city-level').innerHTML = "Nível: "+(game.city.missionLevel.currentLevel+1)+" ("+(game.city.missionLevel.currentLevel+1)+"/"+(game.city.missionLevel.missionLists.length)+")";
 
 
 

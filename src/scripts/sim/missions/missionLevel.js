@@ -11,7 +11,13 @@ export class MissionLevel {
      * Indica o índice do MissionList atual (nível atual)
      * @type {number}
      */
-    currentLevel = 1;
+    currentLevel = 0;
+
+    /**
+     * Se todas as missões foram concluidas
+     * @type {Boolean}
+     */
+    missionsFinished = false;
 
     /**
      * Construtor que cria um nível de missões com várias MissionList
@@ -20,6 +26,11 @@ export class MissionLevel {
     constructor(levelsData) {
         this.missionLists = levelsData.map((level) => {
             const { missions, reward } = level;
+            if (!missions || !reward) {
+                console.log("Incorrect missions format !")
+                return;
+            }
+            
             return new MissionList(missions, reward);
         });
     }
@@ -29,6 +40,9 @@ export class MissionLevel {
      * @returns {boolean}
      */
     isCurrentLevelFinished() {
+        if(this.missionsFinished)
+            return false;
+
         const currentMissionList = this.missionLists[this.currentLevel];
         return currentMissionList.isMissionListFinished();
     }
@@ -38,11 +52,15 @@ export class MissionLevel {
      */
     advanceLevel() {
         if (this.isCurrentLevelFinished()) {
+            const reward = this.missionLists[this.currentLevel].reward
+            window.game.city.money += reward;
+            window.ui.notify('moneyGive',`Parabéns! Subiste de Nível: +${reward}$`);
             // Avançar para o próximo nível, se o atual foi completado
             if (this.currentLevel < this.missionLists.length - 1) {
                 this.currentLevel++;
             } else {
-                console.log("Todos os níveis foram completados!");
+                this.missionsFinished = true;
+                window.ui.notify('success','Parabéns! Concluiste as Missões!');
             }
         } else {
             console.log(`Complete as missões do nível ${this.currentLevel + 1} para avançar.`);
