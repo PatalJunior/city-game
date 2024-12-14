@@ -8,10 +8,17 @@ export class MissionList {
     missionList = [];
 
     /**
+     * Premio a ganhar ao terminar a "quest line"
+     * @type {Integer}
+     */
+    reward;
+
+    /**
      * Construtor que inicializa a lista de missões
      * @param {Array} missionData - Dados das missões a serem adicionadas
      */
-    constructor(missionData) {
+    constructor(missionData, reward) {
+        
         if (Array.isArray(missionData)) {
             this.missionList = missionData.map(data => new Mission(
                 data.missionType,
@@ -19,6 +26,8 @@ export class MissionList {
                 data.missionObjectiveCount,
                 data.eventName
             ));
+
+            this.reward = reward
         }
     }
 

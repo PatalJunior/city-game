@@ -1,18 +1,19 @@
 import { Building } from '../building.js';
 import { City } from '../../city.js';
 import { DEG2RAD } from 'three/src/math/MathUtils.js';
+import { BuildingType } from '../buildingType.js';
 
 export class Road extends Building {
   constructor(x, y) {
     super(x, y);
     this.price = 100;
-    this.type = 'road';
+    this.type = BuildingType.road;
     this.name = 'Road';
     this.style = 'straight';
     this.hideTerrain = true;
     this.roadAccess.enabled = false;
     
-    const roadCount = window.game.city.findAllTiles((tile) => tile.building?.type === 'road')
+    const roadCount = window.game.city.findAllTiles((tile) => tile.building?.type === BuildingType.road)
     roadCount.length += 1 // Adicionar a estrada atual visto que ainda não terminou de ser criada
     const event = new CustomEvent("roadBuilt", { detail: { value: roadCount.length } });
     window.dispatchEvent(event)

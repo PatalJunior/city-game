@@ -60,6 +60,8 @@ export class ResidentsModule extends SimModule {
     for (const resident of this.#residents) {
       resident.simulate(city);
     }
+
+    window.game.residentUpdateEvent();
   }
 
   /**

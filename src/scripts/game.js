@@ -5,6 +5,9 @@ import { InputManager } from './input.js';
 import { City } from './sim/city.js';
 import { SimObject } from './sim/simObject.js';
 import { missions } from './missions.js';
+import { BuildingType } from './sim/buildings/buildingType.js';
+import { DevelopmentState } from './sim/buildings/modules/development.js';
+
 
 /** 
  * Gerenciador da cena do Three.js. Lida com a renderização de um objeto `City`.
@@ -68,6 +71,7 @@ export class Game {
 
       setInterval(this.simulate.bind(this), 1000);
     });
+    
 
     window.addEventListener('resize', this.onResize.bind(this), false);
   }
@@ -161,6 +165,7 @@ export class Game {
     this.city.simulate(1);
 
     window.ui.updateTitleBar(this);
+    window.ui.updateQuestPanel(this);
     window.ui.updateInfoPanel(this.selectedObject);
   }
 
@@ -244,5 +249,33 @@ export class Game {
 // Cria um novo jogo quando a janela é carregada
 window.onload = () => {
   window.game = new Game();
+  window.game.developedResidenceEvent = function developedResidenceEvent() {
+    const developedResidences = window.game.city.findAllTiles((tile) =>
+      tile.building?.type === BuildingType.residential &&
+      tile.building?.development?.state === DevelopmentState.developed
+    );
+  
+  
+    const event = new CustomEvent("residenceBuilt", {
+      detail: { value: developedResidences.length },
+    });
+    window.dispatchEvent(event);
+  };
+  window.game.residentUpdateEvent = function residentUpdateEvent() {
+    const developedResidences = window.game.city.findAllTiles((tile) =>
+      tile.building?.type === BuildingType.residential &&
+      tile.building?.development?.state === DevelopmentState.developed
+    );
+    var totalResidents = 0
+    developedResidences.forEach(tile => {
+      totalResidents += tile.building.residents.count
+    });
+
+  console.log(`Resident update event : ${totalResidents}`)
+    const event = new CustomEvent("updateResident", {
+      detail: { value: totalResidents },
+    });
+    window.dispatchEvent(event);
+  };
   window.ui.PlayBackgroundMusic(true);
 }
