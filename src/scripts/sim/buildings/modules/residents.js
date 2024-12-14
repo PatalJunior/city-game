@@ -50,7 +50,6 @@ export class ResidentsModule extends SimModule {
     // Se o edifício for abandonado, todos os residentes serão despejados e nenhum novo residente pode residir
     if (this.#zone.development.state === DevelopmentState.abandoned && this.#residents.length > 0) {
       this.evictAll();
-      window.game.residentUpdateEvent();
     } else if (this.#zone.development.state === DevelopmentState.developed) {
       // Mudar para lá novos residentes no caso de haver espaço
       if (this.#residents.length < this.maximum && Math.random() < config.modules.residents.residentMoveInChance) {
