@@ -177,6 +177,7 @@ export class Game {
 
     this.renderer.render(this.scene, this.cameraManager.camera);
     this.inputManager.tick();
+    window.ui.updateTimingPanel(this);
   }
 
   /**

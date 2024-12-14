@@ -106,7 +106,7 @@ export class GameUI {
   hideLoadingText() {
     document.getElementById('loading').style.visibility = 'hidden';
   }
-  
+
   /**
    * 
    * @param {*} event 
@@ -155,8 +155,8 @@ export class GameUI {
   updateTitleBar(game) {
     document.getElementById('city-name').innerHTML = game.city.name;
     document.getElementById('population-counter').innerHTML = game.city.population;
-    document.getElementById('city-money').innerHTML = game.city.money+"$";
-    document.getElementById('city-level').innerHTML = "Nível: "+(game.city.missionLevel.currentLevel+1)+" ("+(game.city.missionLevel.currentLevel+1)+"/"+(game.city.missionLevel.missionLists.length)+")";
+    document.getElementById('city-money').innerHTML = game.city.money + "$";
+    document.getElementById('city-level').innerHTML = "Nível: " + (game.city.missionLevel.currentLevel + 1) + " (" + (game.city.missionLevel.currentLevel + 1) + "/" + (game.city.missionLevel.missionLists.length) + ")";
 
 
 
@@ -174,8 +174,8 @@ export class GameUI {
     const missionContainer = document.getElementById('missions-container');
     missionContainer.innerHTML = "";
 
-    const currentMissionsList = game.city.missionLevel.getCurrentMissions()
-
+    const currentMissions = game.city.missionLevel.getCurrentMissions()
+    const currentMissionsList = currentMissions.missionList
     currentMissionsList.forEach(mission => {
       const missionDiv = document.createElement('div');
       const missionText = document.createElement('span');
@@ -197,12 +197,48 @@ export class GameUI {
       missionText.appendChild(missionIcon);
       missionDiv.appendChild(missionText);
       missionContainer.appendChild(missionDiv);
+
     });
 
+    const timingDiv = document.createElement('div');
+    const timingText = document.createElement('span');
+    timingText.classList.add('missions-container-text');
+    timingText.textContent = `${performance.now() - currentMissions.missionStartTime} ms`;
+    timingDiv.appendChild(timingText)
+    missionContainer.appendChild(timingDiv)
+
+
     missionContainer.classList.add('slide-anim-in')
-    missionContainer.style.display = 'block' 
-    
-    
+    missionContainer.style.display = 'block'
+
+
+  }
+
+  /**
+   * Atualiza os valores no painel das quests
+   * @param {Game} game 
+   */
+  updateTimingPanel(game) {
+
+    const timingContainer = document.getElementById('timing-container');
+    timingContainer.innerHTML = "";
+
+    const currentMissions = game.city.missionLevel.getCurrentMissions()
+
+    const timingDiv = document.createElement('div');
+    const timingText = document.createElement('span');
+    timingText.classList.add('timing-container-text');
+    const time = performance.now() - currentMissions.missionStartTime
+    timingText.textContent = `${time} ms`;
+    timingDiv.appendChild(timingText)
+    timingContainer.appendChild(timingDiv)
+
+
+    if(time) {
+      timingContainer.classList.add('slide-anim-in')
+      timingContainer.style.display = 'block'
+    }
+
   }
 
   /**
