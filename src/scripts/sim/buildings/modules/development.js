@@ -100,6 +100,7 @@ export class DevelopmentModule extends SimModule {
         if (this.#abandonmentCounter > config.modules.development.abandonThreshold) {
           if (Math.random() < config.modules.development.abandonChance) {
             this.state = DevelopmentState.abandoned;
+            window.game.developedResidenceEvent();
           }
         } else {
           if (this.level < this.maxLevel && Math.random() < config.modules.development.levelUpChance) {

@@ -234,39 +234,11 @@ h1 {
   gap: 16px;
 }
 
-#notifications-container {
-	position: absolute;
-	top: 240px;
-	right: 0;
-	width: auto;
-	height: auto;
-	max-height: 50vh;
-}
 
 ::-webkit-scrollbar {
     display: none;
 }
 
-.notification {
-    display: none;
-    font-size: 17px;
-    font-family: sans-serif;
-    margin-top: 10px;
-    border-top-left-radius: 5px;
-    border-bottom-left-radius: 5px;
-    padding: 12px;
-    max-width: 500px;
-    align-items: center;
-}
-
-.icon {
-    font-size: 20px;
-    height: 100%;
-}
-
-.message {
-    padding-left: 10px;
-}
 
 @keyframes slide-anim-in {
     0% {

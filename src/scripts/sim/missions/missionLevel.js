@@ -18,8 +18,9 @@ export class MissionLevel {
      * @param {Array} levelsData - Dados das listas de missões para os níveis
      */
     constructor(levelsData) {
-        this.missionLists = levelsData.map((missionsData) => {
-            return new MissionList(missionsData);
+        this.missionLists = levelsData.map((level) => {
+            const { missions, reward } = level;
+            return new MissionList(missions, reward);
         });
     }
 
@@ -60,4 +61,14 @@ export class MissionLevel {
 
         return false;
     }
+
+    /**
+     * Retorna uma lista das missões atuais
+     * @returns {MissionList}
+     */
+    getCurrentMissions() {
+        const currentMissionList = this.missionLists[this.currentLevel].missionList;
+        return currentMissionList
+    }
 }
+

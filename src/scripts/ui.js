@@ -158,16 +158,34 @@ export class GameUI {
     document.getElementById('city-money').innerHTML = game.city.money+"$";
     document.getElementById('city-level').innerHTML = "Nível: "+game.city.level+" ("+game.city.missionCounter+"/"+Object.keys(game.city.levels[game.city.level]).length+")";
 
+
+
+    const date = new Date('1/1/2023');
+    date.setDate(date.getDate() + game.city.simTime);
+    document.getElementById('sim-time').innerHTML = date.toLocaleDateString();
+  }
+
+  /**
+   * Atualiza os valores no painel das quests
+   * @param {Game} game 
+   */
+  updateQuestPanel(game) {
+
     const missionContainer = document.getElementById('missions-container');
     missionContainer.innerHTML = "";
 
-    for (const key of Object.keys(game.city.levels[game.city.level])) {
-      const mission = game.city.levels[game.city.level][key];
+    const currentMissionsList = game.city.missionLevel.getCurrentMissions()
+
+    currentMissionsList.forEach(mission => {
       const missionDiv = document.createElement('div');
+      const missionText = document.createElement('span');
+      missionText.classList.add('missions-container-text');
+      missionText.textContent = `${mission.missionDescription} (${mission._currentMissionObjectiveCount})` + " - ";
 
       const missionIcon = document.createElement('i');
       missionIcon.classList.add('missions-container-text');
-      if (mission.done) {
+
+      if (mission.isMissionFinished) {
         missionIcon.classList.add('fas', 'fa-check');
         missionIcon.style.color = '#02CC16';
       } else {
@@ -175,20 +193,16 @@ export class GameUI {
         missionIcon.style.color = '#B51504';
       }
 
-      const missionText = document.createElement('span');
-      missionText.classList.add('missions-container-text');
-      missionText.textContent = mission.mission + " - ";
 
       missionText.appendChild(missionIcon);
-
       missionDiv.appendChild(missionText);
       missionContainer.appendChild(missionDiv);
-    }
+    });
 
-
-    const date = new Date('1/1/2023');
-    date.setDate(date.getDate() + game.city.simTime);
-    document.getElementById('sim-time').innerHTML = date.toLocaleDateString();
+    missionContainer.classList.add('slide-anim-in')
+    missionContainer.style.display = 'block' 
+    
+    
   }
 
   /**
@@ -234,5 +248,5 @@ export class GameUI {
     });
   }
 }
-window.notyf = notyf
+
 window.ui = new GameUI();

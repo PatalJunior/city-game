@@ -2,6 +2,7 @@ import * as THREE from 'three';
 import { DEG2RAD } from 'three/src/math/MathUtils.js';
 import { DevelopmentModule, DevelopmentState } from '../modules/development.js';
 import { Building } from '../building.js';
+import { BuildingType } from '../buildingType.js';
 
 /**
  * Represents a zoned building such as residential, commercial or industrial
@@ -19,9 +20,9 @@ export class Zone extends Building {
 
   constructor(x = 0, y = 0) {
     super(x, y);
-    
+
     this.name = 'Zone';
-    
+
     // Randomize the building rotation
     this.rotation.y = 90 * Math.floor(4 * Math.random()) * DEG2RAD;
   }
@@ -35,6 +36,8 @@ export class Zone extends Building {
         break;
       default:
         modelName = `${this.type}-${this.style}${this.development.level}`;
+        window.game.developedResidenceEvent();
+
         break;
     }
 
@@ -48,9 +51,11 @@ export class Zone extends Building {
         }
       });
     }
-    
+
     this.setMesh(mesh);
   }
+
+
 
   simulate(city) {
     super.simulate(city);
