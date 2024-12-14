@@ -64,6 +64,7 @@ export class Mission {
             this._currentMissionObjectiveCount = this.missionObjectiveCount;
             
             this.isMissionFinished = true;
+            window.dispatchEvent(new CustomEvent("missionFinished"));
             this.#removeEventListener()
         }
 

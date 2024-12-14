@@ -5,13 +5,33 @@ export class MissionList {
      * Missões a concluir, para terminar a "quest line"
      * @type {Array[Mission]}
      */
-    missionList = [];
+    #missionList = [];
+
+    get missionList() {
+        if (!this.missionStartTime)
+            this.startTimingMission();
+        
+        return this.#missionList;
+    }
 
     /**
      * Premio a ganhar ao terminar a "quest line"
      * @type {Integer}
      */
     reward;
+
+    /**
+     * Data de inicio das missões atuais
+     * @type {DOMHighResTimeStamp}
+     */
+    missionStartTime;
+
+    /**
+     * Data de termino das s atuais
+     * @type {DOMHighResTimeStamp}
+     */
+    missionFinishTime;
+
 
     /**
      * Construtor que inicializa a lista de missões
@@ -21,7 +41,7 @@ export class MissionList {
         // console.log("Constructor")
         // console.log(missionData, reward)
         if (Array.isArray(missionData)) {
-            this.missionList = missionData.map(data => new Mission(
+            this.#missionList = missionData.map(data => new Mission(
                 data.missionType,
                 data.missionDescription,
                 data.missionObjectiveCount,
@@ -37,8 +57,8 @@ export class MissionList {
      * @type {boolean}
      */
     isMissionListFinished() {
-        for (let i = 0; i < this.missionList.length; i++) {
-            const mission = this.missionList[i];
+        for (let i = 0; i < this.#missionList.length; i++) {
+            const mission = this.#missionList[i];
 
             if (!mission.isMissionFinished)
                 return false;
@@ -46,4 +66,17 @@ export class MissionList {
 
         return true;
     }
+
+    startTimingMission() {
+        this.missionStartTime = performance.now();
+        window.addEventListener('missionFinished', this.missionFinishedEventHandler)
+    }
+
+    missionFinishedEventHandler() {
+        if (this.isMissionListFinished()){
+            this.missionFinishTime = performance.now();
+            window.removeEventListener('missionFinished', this.missionFinishedEventHandler)
+        }
+    }
+
 }
