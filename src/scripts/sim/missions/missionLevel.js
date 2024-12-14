@@ -67,6 +67,10 @@ export class MissionLevel {
         }
     }
 
+    get currentMissionList() {
+        return this.missionLists[this.currentLevel]
+    }
+
     /**
      * O ultimo nivel está completado ?
      * @returns {boolean}

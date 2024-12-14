@@ -173,9 +173,8 @@ export class GameUI {
 
     const missionContainer = document.getElementById('missions-container');
     missionContainer.innerHTML = "";
+    const currentMissionsList = game.city.missionLevel.getCurrentMissions().missionList
 
-    const currentMissions = game.city.missionLevel.getCurrentMissions()
-    const currentMissionsList = currentMissions.missionList
     currentMissionsList.forEach(mission => {
       const missionDiv = document.createElement('div');
       const missionText = document.createElement('span');
@@ -200,46 +199,51 @@ export class GameUI {
 
     });
 
-    const timingDiv = document.createElement('div');
-    const timingText = document.createElement('span');
-    timingText.classList.add('missions-container-text');
-    timingText.textContent = `${performance.now() - currentMissions.missionStartTime} ms`;
-    timingDiv.appendChild(timingText)
-    missionContainer.appendChild(timingDiv)
-
-
     missionContainer.classList.add('slide-anim-in')
-    missionContainer.style.display = 'block'
-
+    missionContainer.style.display = 'block' 
 
   }
 
   /**
-   * Atualiza os valores no painel das quests
+   * Atualiza os valores no painel do timing
    * @param {Game} game 
    */
   updateTimingPanel(game) {
-
     const timingContainer = document.getElementById('timing-container');
     timingContainer.innerHTML = "";
 
-    const currentMissions = game.city.missionLevel.getCurrentMissions()
+    const currentMissions = game.city.missionLevel.getCurrentMissions();
+    const time = currentMissions.missionFinishTime || performance.now() - currentMissions.missionStartTime;
+
+    // Convert milliseconds into total seconds
+    const totalSeconds = Math.floor(time / 1000); // Convert time to seconds
+    const minutes = Math.floor(totalSeconds / 60); // Get the minutes
+    const seconds = totalSeconds % 60; // Get the remaining seconds
+
+    // Format the time as MM:SS or 0:SS if less than a minute
+    let formattedTime;
+    if (minutes === 0) {
+        formattedTime = `0:${seconds.toString().padStart(2, '0')}`; // Show 0:SS if less than a minute
+    } else {
+        formattedTime = `${minutes}:${seconds.toString().padStart(2, '0')}`; // Otherwise show MM:SS
+    }
 
     const timingDiv = document.createElement('div');
     const timingText = document.createElement('span');
     timingText.classList.add('timing-container-text');
-    const time = performance.now() - currentMissions.missionStartTime
-    timingText.textContent = `${time} ms`;
-    timingDiv.appendChild(timingText)
-    timingContainer.appendChild(timingDiv)
+    timingText.textContent = `Time: ${formattedTime}`; // Show "Time: MM:SS" or "Time: 0:SS"
 
+    timingDiv.appendChild(timingText);
+    timingContainer.appendChild(timingDiv);
 
-    if(time) {
-      timingContainer.classList.add('slide-anim-in')
-      timingContainer.style.display = 'block'
+    // Apply animation and show the container if there is any time
+    if (time) {
+        timingContainer.classList.add('slide-anim-in');
+        timingContainer.style.display = 'block';
     }
+}
 
-  }
+
 
   /**
    * Atualiza o painel de info com as infos do objeto

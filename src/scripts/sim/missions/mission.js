@@ -68,7 +68,7 @@ export class Mission {
             this.#removeEventListener()
         }
 
-        console.log(`Current mission objective count: ${this._currentMissionObjectiveCount}`);
+        // console.log(`Current mission objective count: ${this._currentMissionObjectiveCount}`);
     }
 
 
@@ -79,7 +79,7 @@ export class Mission {
     #setupEventListener(eventName) {
         this._eventName = eventName
         this._eventListener = (event) => {
-            console.log("Event Triggered of " + this._eventName)
+            // console.log("Event Triggered of " + this._eventName)
             if (event && event.detail && typeof event.detail.value === 'number') {
                 this.#updateMissionObjectiveCount(event.detail.value);
             }

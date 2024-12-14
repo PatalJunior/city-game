@@ -296,7 +296,7 @@ window.onload = () => {
       totalResidents += tile.building.residents.count
     });
 
-  console.log(`Resident update event : ${totalResidents}`)
+  // console.log(`Resident update event : ${totalResidents}`)
     const event = new CustomEvent("updateResident", {
       detail: { value: totalResidents },
     });

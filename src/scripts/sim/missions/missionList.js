@@ -10,7 +10,7 @@ export class MissionList {
     get missionList() {
         if (!this.missionStartTime)
             this.startTimingMission();
-        
+
         return this.#missionList;
     }
 
@@ -73,8 +73,9 @@ export class MissionList {
     }
 
     missionFinishedEventHandler() {
-        if (this.isMissionListFinished()){
-            this.missionFinishTime = performance.now();
+        if (window.game.city.missionLevel.currentMissionList.isMissionListFinished()){
+            console.log("handler")
+            window.game.city.missionLevel.currentMissionList.missionFinishTime = performance.now();
             window.removeEventListener('missionFinished', this.missionFinishedEventHandler)
         }
     }
