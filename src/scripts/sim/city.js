@@ -70,6 +70,11 @@ export class City extends THREE.Group {
       [1]: {mission: "Obtem 75 Residentes", citizens: 75, done: false},
       [2]: {mission: "10 Edifícios Construidos", buildings: 10, done: false},
       [3]: {mission: "Ter Pelo Menos 5 Ruas", road: 5, done: false} 
+    },
+    [3]: {
+      [1]: {mission: "Obtem 100 Residentes", citizens: 100, done: false},
+      [2]: {mission: "15 Edifícios Construidos", buildings: 15, done: false},
+      [3]: {mission: "Ter Pelo Menos 10 Ruas", road: 10, done: false} 
     }
   };
 
@@ -194,11 +199,11 @@ export class City extends THREE.Group {
     }
 
     if (counter == 3) {
-      if (this.level == 1) {
+      if (this.level != 3) {
         this.level++;
         this.money += 2500;
         window.ui.notify('moneyGive','Parabéns! Subiste de Nível: +2500$');
-      } else if (this.level == 2) {
+      } else if (this.level == 3) {
         window.ui.notify('success','Parabéns! Concluiste as Missões!');
         window.ui.toggleFinished();
       }
