@@ -85,7 +85,7 @@ export class MissionLevel {
      * @returns {MissionList}
      */
     getCurrentMissions() {
-        const currentMissionList = this.missionLists[this.currentLevel].missionList;
+        const currentMissionList = this.missionLists[this.currentLevel];
         return currentMissionList
     }
 }

@@ -279,6 +279,21 @@ h1 {
 }
 
 #missions-container {
+  margin-top: 100px;
+  display: block;
+  position: absolute;
+  right: 5px;
+  padding: 10px;
+  border: 1px solid #151820;
+  border-radius: 5px;
+  max-width: 800px;
+  background-color: #4e4e4e37;
+  align-items: center;
+  text-align: center;
+  box-shadow: 1.5px 1.5px 1px #151820;
+}
+
+#timing-container {
   margin-top: 20px;
   display: block;
   position: absolute;
@@ -293,7 +308,7 @@ h1 {
   box-shadow: 1.5px 1.5px 1px #151820;
 }
 
-.missions-container-text {
+.missions-container-text, .timing-container-text {
   margin-bottom: 5px;
   font-size: 24px;
   text-shadow: 1.5px 1.5px 1px black;
